@@ -1,26 +1,18 @@
-import Head from 'next/head'
+import Layout from '../components/layout';
+import firebase from '../lib/firebase';
 
 export default function Home({ bam }) {
+  console.log(firebase);
   return (
-    <div className="container">
-      <Head>
-        <title>Eiphy app</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <main>
-        <h1 className="title">
-          welcome to Eighy
-          {bam}
-        </h1>
-      </main>
-    </div>
-  )
+    <Layout>
+      {bam}
+    </Layout>
+  );
 }
 export async function getStaticProps() {
   return {
     props: {
       bam: 'foo',
     },
-  }
+  };
 }
