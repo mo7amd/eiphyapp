@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { DefaultSeo } from 'next-seo';
 import SEO from '../next-seo.config';
 import '../scss/main.scss';
+import UserWidget from './userWidget';
 
 const Header = (props) => (
   <header className="masthead mb-auto">
@@ -11,6 +12,7 @@ const Header = (props) => (
       <h3 className="masthead-brand">HelloNext</h3>
       <nav className="nav nav-masthead justify-content-center" />
     </div>
+    <UserWidget />
   </header>
 
 );
