@@ -1,29 +1,30 @@
 import React, { Component } from 'react';
 import Login from './login';
 import firebase from '../lib/firebase';
+import Logout from './logout';
 
 class UserWidget extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { user: firebase.auth().currentUser };
-  }
+    this.state = { user: null };
 
-  onLogin = (user) => {
-    this.setState({ user });
-  };
+    firebase.auth().onAuthStateChanged((user) => {
+      console.log(user);
+      this.setState({ user });
+    });
+  }
 
   render() {
     const { user } = this.state;
     if (!user) {
       return (
-        <Login onLogin={this.onLogin} />
-
+        <Login />
       );
     }
 
     return (
-      <div>user</div>
+      <Logout />
     );
   }
 }
