@@ -1,47 +1,31 @@
 import PropTypes from 'prop-types';
-import { Component } from 'react';
 import Layout from '../components/layout';
-import { db } from '../lib/firebase';
 import Grid from '../components/grid';
+import { getTrending } from '../lib/query';
 
-export default class Home extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { imgs: props.imgs, type: 'meme' };
-  }
+export default function Home(props) {
+  const { imgs, type } = props;
 
-  componentDidMount() {
-    const { type } = this.state;
-
-    db.collection('posts')
-      .where('type', '==', type)
-      .get()
-      .then((querySnapshot) => {
-        const imgs = [];
-        querySnapshot.forEach((doc) => imgs.push(doc.data()));
-        this.setState({ imgs });
-      });
-  }
-
-  render() {
-    const { imgs } = this.state;
-
-    return (
-      <Layout>
-        <Grid imgs={imgs} />
-      </Layout>
-    );
-  }
+  return (
+    <Layout>
+      <Grid
+        imgs={imgs}
+        loadMore={(offset) => getTrending(type, offset)}
+      />
+    </Layout>
+  );
 }
 
 Home.propTypes = {
   imgs: PropTypes.array.isRequired,
+  type: PropTypes.string.isRequired,
 };
 
 export async function getStaticProps() {
   return {
     props: {
       imgs: [],
+      type: 'memes',
     },
   };
 }

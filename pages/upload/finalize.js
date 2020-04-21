@@ -58,6 +58,7 @@ export default function Finalize() {
         meta: {},
         isPublic: true,
         sourceUrl: '',
+        views: 0,
         createdAt: firebase.firestore.FieldValue.serverTimestamp(),
         user,
       };

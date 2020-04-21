@@ -4,6 +4,7 @@ import { DefaultSeo } from 'next-seo';
 import SEO from '../next-seo.config';
 import '../scss/main.scss';
 import UserWidget from './userWidget';
+import SearchField from './searchField';
 
 const Header = (props) => (
   <header className="masthead mb-auto">
@@ -13,6 +14,8 @@ const Header = (props) => (
       <nav className="nav nav-masthead justify-content-center" />
     </div>
     <UserWidget />
+
+    <SearchField />
   </header>
 
 );
