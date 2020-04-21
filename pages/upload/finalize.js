@@ -54,7 +54,7 @@ export default function Finalize() {
     img.put(blob).then(async ({ ref }) => {
       const postData = {
         tags,
-        url: await ref.getDownloadURL(),
+        url: (await ref.getDownloadURL()).split('&token')[0],
         meta: {},
         isPublic: true,
         sourceUrl: '',
