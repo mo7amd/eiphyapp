@@ -34,12 +34,13 @@ class Share extends Component {
 }
 
 Share.defaultProps = {
+  link: '',
   title: '',
   description: '',
 };
 
 Share.propTypes = {
-  link: PropTypes.string.isRequired,
+  link: PropTypes.string,
   title: PropTypes.string,
   description: PropTypes.string,
 };

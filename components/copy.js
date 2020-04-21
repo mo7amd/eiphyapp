@@ -33,8 +33,12 @@ const Copy = ({ link }) => {
   );
 };
 
+Copy.defaultProps = {
+  link: '',
+};
+
 Copy.propTypes = {
-  link: PropTypes.string.isRequired,
+  link: PropTypes.string,
 };
 
 export default Copy;
