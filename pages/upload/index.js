@@ -1,7 +1,18 @@
-export default function Upload({ }) {
+import React from 'react';
+import Dropzone from '../../components/dropZone';
+import '../../scss/main.scss';
+
+export default function Upload() {
   return (
-    <h2>
-      hello to upload page
-    </h2>
+    <div className="container">
+      <div className="row text-center">
+        <h2>UPLOAD</h2>
+        <p>
+          Upload your GIFs and Stickers to share on Facebook, Twitter,
+          Instagram, text message, email, and everywhere else.
+        </p>
+      </div>
+      <Dropzone />
+    </div>
   );
 }
