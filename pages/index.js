@@ -1,15 +1,37 @@
 import PropTypes from 'prop-types';
+import { Component } from 'react';
 import Layout from '../components/layout';
-import firebase from '../lib/firebase';
+import { db } from '../lib/firebase';
 import Grid from '../components/grid';
 
-export default function Home({ imgs }) {
-  console.log(firebase);
-  return (
-    <Layout>
-      <Grid imgs={imgs} />
-    </Layout>
-  );
+export default class Home extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { imgs: props.imgs, type: 'meme' };
+  }
+
+  componentDidMount() {
+    const { type } = this.state;
+
+    db.collection('posts')
+      .where('type', '==', type)
+      .get()
+      .then((querySnapshot) => {
+        const imgs = [];
+        querySnapshot.forEach((doc) => imgs.push(doc.data()));
+        this.setState({ imgs });
+      });
+  }
+
+  render() {
+    const { imgs } = this.state;
+
+    return (
+      <Layout>
+        <Grid imgs={imgs} />
+      </Layout>
+    );
+  }
 }
 
 Home.propTypes = {
