@@ -1,10 +1,14 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import slugify from 'slugify';
-import firebase from '../../lib/firebase';
+import { useRouter } from 'next/router';
+import { db, storage } from '../../lib/firebase';
 
 export default function Finalize() {
   const [imgUrl, setImg] = useState('');
   const [tags, setTag] = useState([]);
+  const [disabled, setDisabled] = useState(false);
+  const router = useRouter();
+
   const tagRef = useRef();
   useEffect(() => {
     setImg(localStorage.getItem(process.env.IMG_PREVIEW));
@@ -20,6 +24,10 @@ export default function Finalize() {
         lower: true,
         strict: true,
       });
+      if (tags.includes(slug)) {
+        tagRef.current.value = '';
+        return;
+      }
       setTag((t) => ([
         ...t,
         slug,
@@ -29,26 +37,33 @@ export default function Finalize() {
 
   const onUploadHandler = async (e) => {
     e.preventDefault();
-    const ref = firebase.storage().ref();
-    const db = firebase.database().ref();
+    setDisabled(true);
     const name = new Date().getTime().toString();
-    const img = ref.child(`/gifs/${name}.gif`);
     const blob = await fetch(imgUrl).then((res) => res.blob());
-    img.put(blob).then(({ metadata }) => {
-      const { fullPath } = metadata;
-      const updates = {
+    const fileType = blob.type.split('/')[1];
+    const collection = fileType === 'gif' ? 'gifs' : 'memes';
+    const img = storage.ref().child(`/${collection}/${name}.${fileType}`);
+
+    img.put(blob).then(async ({ ref }) => {
+      const postData = {
         tags,
-        url: fullPath,
+        url: await ref.getDownloadURL(),
         meta: {},
         isPublic: true,
         sourceUrl: '',
       };
-      const newPost = db.child('gifs').push(updates);
+      const newPost = db.collection(collection).add(postData);
       newPost
         .then((o) => {
+          router.push(`/${collection}/${o.id}`);
         })
         .catch((e) => {
+          setDisabled(true);
+          console.error(e);
         });
+    }).catch((e) => {
+      setDisabled(true);
+      console.error(e);
     });
   };
 
@@ -69,12 +84,12 @@ export default function Finalize() {
           </form>
           <ul>
             {
-              tags.map((tag) => (
-                <li>{tag}</li>
+              tags.map((tag, key) => (
+                <li key={key}>{tag}</li>
               ))
             }
           </ul>
-          <button type="button" onClick={(e) => onUploadHandler(e)}>Upload Gif</button>
+          <button disabled={disabled} type="button" onClick={(e) => onUploadHandler(e)}>Upload Gif</button>
         </div>
       </div>
     </div>
