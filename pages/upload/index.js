@@ -1,4 +1,4 @@
-import react from 'react';
+import React from 'react';
 import Dropzone from '../../components/dropZone';
 import '../../scss/main.scss';
 

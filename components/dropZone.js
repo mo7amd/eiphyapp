@@ -13,7 +13,7 @@ export default function DropZone() {
         setError('');
       }
     });
-    localStorage.setItem('imgPreview', URL.createObjectURL(files[0]));
+    localStorage.setItem(process.env.IMG_PREVIEW, URL.createObjectURL(files[0]));
     router.push('/upload/finalize');
   }, []);
   const onDropRejected = useCallback((files) => {

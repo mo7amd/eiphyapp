@@ -5,5 +5,6 @@ module.exports = withSass(withPurgeCss({
   purgeCssEnabled: ({ dev, isServer }) => (!dev && !isServer),
   env: {
     MAX_FILE_SIZE: 5,
+    IMG_PREVIEW: 'ImgPreview',
   },
 }));

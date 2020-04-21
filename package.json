@@ -27,7 +27,8 @@
     "react-dom": "16.13.1",
     "react-dropzone": "^10.2.2",
     "react-icons": "^3.9.0",
-    "react-social-login-buttons": "^3.0.0"
+    "react-social-login-buttons": "^3.0.0",
+    "slugify": "^1.4.0"
   },
   "devDependencies": {
     "babel-eslint": "^10.1.0",
