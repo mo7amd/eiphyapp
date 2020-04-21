@@ -12,9 +12,8 @@ const Login = () => {
       onClick={() => {
         setDisabled(true);
         const provider = new firebase.auth.FacebookAuthProvider();
-        console.log(provider);
         firebase.auth().signInWithPopup(provider).catch((error) => {
-          console.log(error);
+          console.error(error);
           setDisabled(false);
         });
       }}

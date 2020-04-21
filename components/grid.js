@@ -1,11 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-const Grid = ({ imgs }) => (
-  <div>
-    {imgs.map((img) => (<div><img src={img.url} alt="" /></div>))}
-  </div>
-);
+const Grid = (props) => {
+  const { imgs: propImgs, loadMore } = props;
+  const [imgs, setImgs] = useState(propImgs || []);
+
+  const init = async () => {
+    setImgs((await loadMore(0)));
+  };
+  init();
+
+  return (
+    <div>
+      {imgs.map((img, key) => (<div key={key}><img src={img.url} alt="" /></div>))}
+    </div>
+  );
+};
 
 Grid.defaultProps = {
   imgs: [],
@@ -13,6 +23,7 @@ Grid.defaultProps = {
 
 Grid.propTypes = {
   imgs: PropTypes.array,
+  loadMore: PropTypes.func.isRequired,
 };
 
 export default Grid;

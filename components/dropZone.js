@@ -30,7 +30,7 @@ export default function DropZone() {
     onDropRejected,
     maxSize: MAX_FILE_SIZE,
     multiple: false,
-    accept: 'image/gif',
+    accept: 'image/*',
   });
   return (
     <section className="container">

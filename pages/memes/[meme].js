@@ -1,33 +1,22 @@
-import Head from 'next/head';
+import Layout from '../../components/layout';
+import ImgView from '../../components/imgView';
 
 function Meme({ meme }) {
   return (
-    <>
-      <Head>
-        <title>
-          hellow gif -
-          {meme}
-        </title>
-        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-        <meta name="ta7ouna" />
-      </Head>
-      <h2>
-        hello
-        {' - '}
-        {meme}
-      </h2>
-    </>
+    <Layout>
+      {(meme && <ImgView type="memes" id={meme} />) || false}
+    </Layout>
   );
 }
 
 // This function gets called at build time
 export async function getStaticPaths() {
-  const paths = Array(1).fill(0).map((_, index) => ({
-    params: { meme: `${index + 1}` },
-  }));
+  // const paths = Array(1).fill(0).map((_, index) => ({
+  //   params: { meme: `${index + 1}` },
+  // }));
 
   return {
-    paths,
+    paths: [],
     fallback: true,
   };
 }

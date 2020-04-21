@@ -10,7 +10,6 @@ class UserWidget extends Component {
     this.state = { user: null };
 
     firebase.auth().onAuthStateChanged((user) => {
-      console.log(user);
       this.setState({ user });
     });
   }
