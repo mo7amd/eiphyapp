@@ -1,13 +1,20 @@
 import React, { useEffect, useRef, useState } from 'react';
 import slugify from 'slugify';
 import { useRouter } from 'next/router';
-import { db, storage } from '../../lib/firebase';
+import firebase, { db, storage } from '../../lib/firebase';
+import Login from '../../components/login';
+import Layout from '../../components/layout';
 
 export default function Finalize() {
   const [imgUrl, setImg] = useState('');
   const [tags, setTag] = useState([]);
   const [disabled, setDisabled] = useState(false);
+  const [user, setUser] = useState(firebase.auth().currentUser);
   const router = useRouter();
+
+  firebase.auth().onAuthStateChanged((user) => {
+    setUser(user);
+  });
 
   const tagRef = useRef();
   useEffect(() => {
@@ -51,6 +58,8 @@ export default function Finalize() {
         meta: {},
         isPublic: true,
         sourceUrl: '',
+        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+        user,
       };
       const newPost = db.collection(collection).add(postData);
       newPost
@@ -68,30 +77,36 @@ export default function Finalize() {
   };
 
   return (
-    <div className="container text-center">
-      <div className="row">
-        <div key="img-viewer" className="col-lg-6 col-sm-12">
-          <img src={imgUrl} alt="" />
-        </div>
-        <div key="img-info" className="col-lg-6 col-sm-12">
-          <form onSubmit={(e) => onAddTagHandler(e)}>
-            <label htmlFor="tags">
-              <input ref={tagRef} id="tags" type="text" />
-              <button type="submit" className="">
-                add
-              </button>
-            </label>
-          </form>
-          <ul>
-            {
-              tags.map((tag, key) => (
-                <li key={key}>{tag}</li>
-              ))
-            }
-          </ul>
-          <button disabled={disabled} type="button" onClick={(e) => onUploadHandler(e)}>Upload Gif</button>
+    <Layout>
+      <div className="container text-center">
+        <div className="row">
+          <div key="img-viewer" className="col-lg-6 col-sm-12">
+            <img src={imgUrl} alt="" />
+          </div>
+          <div key="img-info" className="col-lg-6 col-sm-12">
+            <form onSubmit={(e) => onAddTagHandler(e)}>
+              <label htmlFor="tags">
+                <input ref={tagRef} id="tags" type="text" />
+                <button type="submit" className="">
+                  add
+                </button>
+              </label>
+            </form>
+            <ul>
+              {
+                tags.map((tag, key) => (
+                  <li key={key}>{tag}</li>
+                ))
+              }
+            </ul>
+            <button disabled={disabled} type="button" onClick={(e) => onUploadHandler(e)}>
+              Upload
+              Gif
+            </button>
+            {!user && (<Login />)}
+          </div>
         </div>
       </div>
-    </div>
+    </Layout>
   );
 }

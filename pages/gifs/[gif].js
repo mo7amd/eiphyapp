@@ -1,8 +1,9 @@
 import Head from 'next/head';
+import Layout from '../../components/layout';
 
 function Gif({ gif }) {
   return (
-    <>
+    <Layout>
       <Head>
         <title>
           hellow gif -
@@ -16,7 +17,7 @@ function Gif({ gif }) {
         {' - '}
         {gif}
       </h2>
-    </>
+    </Layout>
   );
 }
 

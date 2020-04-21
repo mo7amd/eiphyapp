@@ -1,8 +1,9 @@
 import Head from 'next/head';
+import Layout from '../../components/layout';
 
 function Meme({ meme }) {
   return (
-    <>
+    <Layout>
       <Head>
         <title>
           hellow gif -
@@ -16,7 +17,7 @@ function Meme({ meme }) {
         {' - '}
         {meme}
       </h2>
-    </>
+    </Layout>
   );
 }
 
