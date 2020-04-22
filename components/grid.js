@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 const Grid = (props) => {
@@ -8,7 +8,7 @@ const Grid = (props) => {
   const init = async () => {
     setImgs((await loadMore(0)));
   };
-  init();
+  useEffect(() => { init(); }, [propImgs]);
 
   return (
     <div>
