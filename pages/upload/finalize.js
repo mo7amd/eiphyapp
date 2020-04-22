@@ -45,6 +45,10 @@ export default function Finalize() {
   const onUploadHandler = async (e) => {
     e.preventDefault();
     setDisabled(true);
+    if (!user) {
+      console.error('Not User');
+      return;
+    }
     const name = new Date().getTime().toString();
     const blob = await fetch(imgUrl).then((res) => res.blob());
     const fileType = blob.type.split('/')[1];
@@ -52,6 +56,7 @@ export default function Finalize() {
     const img = storage.ref().child(`/${collection}/${name}.${fileType}`);
 
     img.put(blob).then(async ({ ref }) => {
+      const userRef = db.doc(`users/${user.uid}`);
       const postData = {
         tags,
         url: (await ref.getDownloadURL()).split('&token')[0],
@@ -60,7 +65,7 @@ export default function Finalize() {
         sourceUrl: '',
         views: 0,
         createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-        user,
+        user: userRef,
       };
       const newPost = db.collection(collection).add(postData);
       newPost
@@ -77,6 +82,16 @@ export default function Finalize() {
     });
   };
 
+
+  let uploadButton = (
+    <button disabled={disabled} type="button" onClick={(e) => onUploadHandler(e)}>
+      Upload
+      Gif
+    </button>
+  );
+  if (!user) {
+    uploadButton = <Login />;
+  }
   return (
     <Layout>
       <div className="container text-center">
@@ -100,11 +115,7 @@ export default function Finalize() {
                 ))
               }
             </ul>
-            <button disabled={disabled} type="button" onClick={(e) => onUploadHandler(e)}>
-              Upload
-              Gif
-            </button>
-            {!user && (<Login />)}
+            {uploadButton}
           </div>
         </div>
       </div>
