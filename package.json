@@ -4,8 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev -p 2020",
-    "build": "next build",
-    "start": "next start"
+    "build": "next build  && next export && cp -r public out",
+    "start": "next start",
+    "emulate": "firebase serve"
   },
   "dependencies": {
     "@zeit/next-css": "^1.0.1",
