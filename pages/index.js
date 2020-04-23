@@ -10,22 +10,26 @@ export default function Home(props) {
     <Layout>
       <Grid
         imgs={imgs}
-        loadMore={(offset) => getTrending(type, offset)}
+        loadMore={(startAfter) => getTrending({ type, startAfter })}
       />
     </Layout>
   );
 }
 
+Home.defaultProps = {
+  type: null,
+};
+
 Home.propTypes = {
   imgs: PropTypes.array.isRequired,
-  type: PropTypes.string.isRequired,
+  type: PropTypes.string,
 };
 
 export async function getStaticProps() {
   return {
     props: {
       imgs: [],
-      type: 'memes',
+      type: null,
     },
   };
 }

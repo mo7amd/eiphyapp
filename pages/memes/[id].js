@@ -1,6 +1,6 @@
 import Layout from '../../components/layout';
 import ImgView from '../../components/imgView';
-import { getById, search, getSimilar } from '../../lib/query';
+import { getPostById, search, getSimilar } from '../../lib/query';
 
 function Meme({ id, img, imgs }) {
   return (
@@ -26,9 +26,10 @@ export async function getStaticPaths() {
 
 // This also gets called at build time
 export async function getStaticProps({ params: { id, img: imgParams, imgs: imgsParams } }) {
-  let img = imgParams || await getById('memes', id, false) || {};
+  let img = imgParams || await getPostById(id, false) || {};
   img = JSON.parse(JSON.stringify(img));
-  let imgs = imgsParams || (img && await getSimilar('memes', img.tags)) || [];
+  let imgs = imgsParams
+    || (img && await getSimilar({ searchParam: img.tags, type: img.type })) || [];
   imgs = imgs.map((img) => JSON.parse(JSON.stringify(img)));
 
   return { props: { id, img, imgs } };
