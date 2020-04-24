@@ -41,7 +41,9 @@ function SearchPage({ imgs }) {
       {searchParam && (
       <Grid
         imgs={imgs}
-        loadMore={(startAfter) => search({ type, searchParam, startAfter })}
+        loadMore={(startAfter) => search({
+          type, searchParam, startAfter, fulltext: true,
+        })}
       />
       )}
 
@@ -59,7 +61,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params: { searchParam } }) {
-  const imgs = await search({ searchParam });
+  const imgs = await search({ searchParam, fulltext: true });
 
   return {
     props: {

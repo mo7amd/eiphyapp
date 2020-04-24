@@ -9,11 +9,16 @@ exports.postOnCreate = functions.firestore
     const { tags, type } = snap.data();
     const increment = admin.firestore.FieldValue.increment(1);
     const tagsRef = app.database().ref('tags');
-    const tagsCollection = app.firestore().collection('tags');
+    const db = app.firestore();
+    const tagsCollection = db.collection('tags');
+    const batch = db.batch();
 
-    const promises = tags.map((tag) => Promise.all([tagsRef.child(tag).set(true),
-      tagsCollection.doc(tag).set({ all: increment, [type]: increment })]));
+    const tagsObj = {};
+    for (let i = tags.length; i--;) {
+      const tag = tags[i];
+      tagsObj[tag] = true;
+      batch.set(tagsCollection.doc(tag), { all: increment, [type]: increment });
+    }
 
-
-    return Promise.all(promises);
+    return Promise.all([tagsRef.set(tagsObj), batch.commit()]);
   });

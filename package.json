@@ -17,6 +17,7 @@
     "bootstrap": "^4.3.1",
     "cp-cli": "^2.0.0",
     "firebase": "^7.14.2",
+    "isomorphic-fetch": "^2.2.1",
     "next": "9.3.5",
     "next-purgecss": "^4.0.0",
     "next-seo": "^4.4.0",
@@ -26,9 +27,9 @@
     "react-dom": "16.13.1",
     "react-dropzone": "^10.2.2",
     "react-social-login-buttons": "^3.0.0",
+    "request": "latest",
     "sass-loader": "^8.0.2",
-    "slugify": "^1.4.0",
-    "request": "latest"
+    "slugify": "^1.4.0"
   },
   "devDependencies": {
     "eslint": "^6.8.0",
