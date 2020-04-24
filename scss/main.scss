@@ -19,10 +19,17 @@
   url('/static/assets/fonts/almarai-v2-arabic-regular.svg#Almarai') format('svg'); /* Legacy iOS */
 }
 
-body {
+.main-body {
   color: white;
   background-color: #191919;
   font-family: 'Almarai', 'serif', Arial, sans-serif !important;
+}
+
+a {
+  color: inherit;
+  &:hover {
+    color: inherit;
+  }
 }
 
 .dropzone {
@@ -42,4 +49,110 @@ body {
 }
 img {
   max-width: 100%;
+}
+#__next {
+  @extend .container;
+  margin: auto;
+}
+.main-header {
+  display: flex;
+  align-items: center;
+  margin: 30px auto;
+  &__links {
+    justify-self: flex-end;
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    a, button {
+      margin-right: 15px;
+      border: none;
+      color: #fff;
+      padding: 8.5px 16px;
+    }
+    a {
+      background: linear-gradient(103deg,#6157ff,#7067ff,#6157ff);
+    }
+    button {
+      background: linear-gradient(103deg,#fc6665,#fc6665,#fc6665);
+    }
+  }
+  &__logo {
+
+  }
+}
+.search-tool {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 30px;
+  form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+  input {
+    width: 100%;
+    height: 52px;
+    outline: none;
+    border-width: 0;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+    padding: 0 20px;
+  }
+  button {
+    width: 52px;
+    height: 52px;
+    background: linear-gradient(45deg, rgb(153, 51, 255) 0%, rgb(255, 102, 102) 100%);
+    border: none;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+  }
+}
+.main-layout {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  .load-more-button {
+    height: 40px;
+    padding: 0 16px;
+    margin: 30px auto;
+    border: none;
+    border-radius: 20px;
+    background-color: #212121;
+    color: #fff;
+    &:hover {
+      color: #00E6CC;
+    }
+  }
+}
+.grid-view {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  .img-card {
+    @extend .col-lg-4;
+    @extend .col-md-6;
+    @extend .col-sm-12;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+  }
+  &__load-more {
+    display: flex;
+    width: 100%;
+    margin: auto;
+  }
+}
+.img-viewer {
+  display: flex;
+  margin-bottom: 30px;
+  &__info {
+    margin-left: 30px;
+    display: flex;
+    flex-direction: column;
+  }
 }
