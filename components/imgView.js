@@ -26,18 +26,23 @@ const ImgView = (props) => {
   return (
     <div>
       <DefaultSeo {...SEO} />
-
-      <SingleImg img={img} />
-      <p>
-        views:
-        {img.views}
-      </p>
-      <div>
-        username:
-        {img.user.username}
+      <div className="img-viewer">
+        <SingleImg img={img} />
+        <div className="img-viewer__info">
+          <h4>
+            views:
+            {' '}
+            {img.views}
+          </h4>
+          {/* <h4>
+            username:
+            {' '}
+            {img.user.username}
+          </h4> */}
+          <Favorite id={img.id} />
+          <Share link={`/${img.type}/${img.id}`} />
+        </div>
       </div>
-      <Favorite id={img.id} />
-      <Share link={`/${img.type}/${img.id}`} />
       <Grid
         currentImg={img}
         imgs={imgs}

@@ -12,21 +12,24 @@ const SearchField = () => {
 
   return (
     <aside className="search-tool">
-      <input
-        type="search"
-        value={searchValue}
-        onChange={(e) => {
-          setSearchValue(e.target.value);
-        }}
-      />
-      <button
-        type="button"
-        onClick={() => {
-          router.push(`/search/${searchValue}`);
-        }}
+      <form onSubmit={(e) => {
+        e.preventDefault();
+        router.push(`/search/${searchValue}`);
+      }}
       >
-        <span className="fa fa-search" />
-      </button>
+        <input
+          type="search"
+          value={searchValue}
+          onChange={(e) => {
+            setSearchValue(e.target.value);
+          }}
+        />
+        <button
+          type="submit"
+        >
+          <span className="fa fa-search" />
+        </button>
+      </form>
     </aside>
   );
 };

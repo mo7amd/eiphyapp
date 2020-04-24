@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import firebase, { db } from '../lib/firebase';
-import { refreshUser } from '../lib/user';
 
 const Favorite = ({ id }) => {
   const [user, setUser] = useState(null);

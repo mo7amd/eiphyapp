@@ -11,7 +11,11 @@ const Header = (props) => (
     <header className="main-header">
       <DefaultSeo {...SEO} />
       <div className="main-header__logo">
-        <h3 className="masthead-brand">Eiphy logo</h3>
+        <Link href="/">
+          <a>
+            <h3 className="masthead-brand">Eiphy logo</h3>
+          </a>
+        </Link>
         <nav className="nav nav-masthead justify-content-center" />
       </div>
       <div className="main-header__links">
