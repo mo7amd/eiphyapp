@@ -34,7 +34,7 @@ const Favorite = ({ id }) => {
               })
               .catch((e) => {
                 setDisabled(false);
-                console.log(e);
+                console.error(e);
               });
           }}
         >
@@ -66,7 +66,7 @@ const Favorite = ({ id }) => {
             })
             .catch((e) => {
               setDisabled(false);
-              console.log(e);
+              console.error(e);
             });
         }}
       >

@@ -49,7 +49,7 @@ export default function Finalize() {
       console.error('Not User');
       return;
     }
-    const name = new Date().getTime().toString();
+    const name = `${tags[0]}_${new Date().getTime().toString()}`;
     const blob = await fetch(imgUrl).then((res) => res.blob());
     const fileType = blob.type.split('/')[1];
     const type = fileType === 'gif' ? 'gifs' : 'memes';
@@ -57,10 +57,14 @@ export default function Finalize() {
     const img = storage.ref().child(`/${type}/${name}.${fileType}`);
 
     const localUser = JSON.parse(localStorage.getItem('user'));
-    img.put(blob, { user: user.uid }).then(async ({ ref }) => {
+    img.put(blob, { user: user.uid }).then(() => {
+      const url = `https://firebasestorage.googleapis.com/v0/b/eiphyappfinal.appspot.com/o/${type}%2F${name}_600x315.${fileType}?alt=media`;
+      const thumb = `https://firebasestorage.googleapis.com/v0/b/eiphyappfinal.appspot.com/o/${type}%2F${name}_200x200.${fileType}?alt=media`;
+
       const postData = {
         tags,
-        url: (await ref.getDownloadURL()).split('&token')[0],
+        url,
+        thumb,
         meta: {},
         isPublic: true,
         sourceUrl: '',
@@ -78,15 +82,7 @@ export default function Finalize() {
 
       db.collection('posts').add(postData)
         .then((o) => {
-          const increment = firebase.firestore.FieldValue.increment(1);
-          const batch = db.batch();
-          tags.forEach((tag) => {
-            const tagDocRef = db.collection('tags').doc(tag);
-            batch.set(tagDocRef, { all: increment, [type]: increment });
-          });
-          batch.commit().then(() => {
-            router.push(`/${type}/${o.id}`);
-          });
+          router.push(`/${type}/${o.id}`);
         });
     }).catch((e) => {
       setDisabled(true);

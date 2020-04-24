@@ -13,7 +13,7 @@ const Logout = () => {
         firebase.auth().signOut().then(() => {
           localStorage.removeItem('user');
         }).catch((error) => {
-          console.log(error);
+          console.error(error);
           setDisabled(false);
         });
       }}

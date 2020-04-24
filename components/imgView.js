@@ -8,6 +8,7 @@ import { getPostById, getSimilar } from '../lib/query';
 import SEO from '../next-seo.config';
 import Share from './share';
 import Favorite from './favorite';
+import firebase from '../lib/firebase';
 
 const ImgView = (props) => {
   const {
@@ -21,6 +22,7 @@ const ImgView = (props) => {
 
   useEffect(() => {
     if (!img || !(Object.keys(img) || img).length) { init(); }
+    firebase.analytics().logEvent('imgView', { id });
   }, [id]);
 
   if (!img || !(Object.keys(img) || img).length) {
@@ -41,8 +43,9 @@ const ImgView = (props) => {
         {img.user.username}
       </div>
       <Favorite id={id} />
-      <Share link={(typeof location !== 'undefined' && location.href) || img.url} />
+      <Share link={`/${img.type}/${img.id}`} />
       <Grid
+        currentImg={img}
         imgs={imgs}
         loadMore={(startAfter) => getSimilar({ searchParam: img.tags, startAfter })}
       />
