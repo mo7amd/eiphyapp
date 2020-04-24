@@ -10,8 +10,10 @@ const Logout = () => {
       disabled={disabled}
       onClick={() => {
         setDisabled(true);
-        firebase.auth().signOut().catch((error) => {
-          console.log(error);
+        firebase.auth().signOut().then(() => {
+          localStorage.removeItem('user');
+        }).catch((error) => {
+          console.error(error);
           setDisabled(false);
         });
       }}

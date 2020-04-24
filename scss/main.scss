@@ -2,7 +2,28 @@
 @import  "~bootstrap/scss/variables";
 @import  "~bootstrap/scss/mixins/_breakpoints";
 @import  "~bootstrap/scss/bootstrap";
+@import  "~@fortawesome/fontawesome-free/scss/fontawesome";
 @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+
+/* almarai-regular - arabic */
+@font-face {
+  font-family: 'Almarai';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/static/assets/fonts/almarai-v2-arabic-regular.eot'); /* IE9 Compat Modes */
+  src: local('Almarai'), local('Almarai-Regular'),
+  url('/static/assets/fonts/almarai-v2-arabic-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('/static/assets/fonts/almarai-v2-arabic-regular.woff2') format('woff2'), /* Super Modern Browsers */
+  url('/static/assets/fonts/almarai-v2-arabic-regular.woff') format('woff'), /* Modern Browsers */
+  url('/static/assets/fonts/almarai-v2-arabic-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+  url('/static/assets/fonts/almarai-v2-arabic-regular.svg#Almarai') format('svg'); /* Legacy iOS */
+}
+
+body {
+  color: white;
+  background-color: #191919;
+  font-family: 'Almarai', 'serif', Arial, sans-serif !important;
+}
 
 .dropzone {
   flex: 1;

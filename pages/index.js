@@ -4,13 +4,13 @@ import Grid from '../components/grid';
 import { getTrending } from '../lib/query';
 
 export default function Home(props) {
-  const { imgs, type } = props;
+  const { imgs } = props;
 
   return (
     <Layout>
       <Grid
         imgs={imgs}
-        loadMore={(offset) => getTrending(type, offset)}
+        loadMore={(startAfter) => getTrending({ startAfter })}
       />
     </Layout>
   );
@@ -18,14 +18,14 @@ export default function Home(props) {
 
 Home.propTypes = {
   imgs: PropTypes.array.isRequired,
-  type: PropTypes.string.isRequired,
 };
 
 export async function getStaticProps() {
+  const imgs = await getTrending();
+
   return {
     props: {
-      imgs: [],
-      type: 'memes',
+      imgs,
     },
   };
 }

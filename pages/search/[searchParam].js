@@ -5,9 +5,9 @@ import Layout from '../../components/layout';
 import SEO from '../../next-seo.config';
 import { search } from '../../lib/query';
 
-function Search() {
+function SearchPage({ imgs }) {
   const router = useRouter();
-  const { searchParam, type = 'gifs' } = router.query;
+  const { searchParam, type } = router.query;
 
   return (
     <Layout>
@@ -38,10 +38,32 @@ function Search() {
       </button>
 
 
-      {searchParam && <Grid loadMore={(offset) => search(type, searchParam, offset)} />}
+      {searchParam && (
+      <Grid
+        imgs={imgs}
+        loadMore={(startAfter) => search({ type, searchParam, startAfter })}
+      />
+      )}
 
     </Layout>
   );
 }
 
-export default Search;
+export default SearchPage;
+
+export async function getStaticPaths() {
+  return {
+    paths: [],
+    fallback: true,
+  };
+}
+
+export async function getStaticProps({ params: { searchParam } }) {
+  const imgs = await search({ searchParam });
+
+  return {
+    props: {
+      imgs,
+    },
+  };
+}

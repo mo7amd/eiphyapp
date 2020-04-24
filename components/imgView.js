@@ -1,25 +1,27 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { DefaultSeo } from 'next-seo';
+import DefaultErrorPage from 'next/error';
 import SingleImg from './singleImg';
 import Grid from './grid';
-import { getById, getSimilar } from '../lib/query';
+import { getSimilar } from '../lib/query';
 import SEO from '../next-seo.config';
 import Share from './share';
+import Favorite from './favorite';
+import firebase from '../lib/firebase';
 
 const ImgView = (props) => {
   const {
-    type, id, img: propImg, imgs,
+    img, imgs,
   } = props;
-  const [img, setImg] = useState(propImg);
-
-  const init = async () => {
-    setImg(await getById(type, id));
-  };
 
   useEffect(() => {
-    init();
-  }, [id]);
+    firebase.analytics().logEvent('imgView', { id: img.id });
+  }, []);
+
+  if (!img || !(Object.keys(img) || img).length) {
+    return <DefaultErrorPage statusCode={404} />;
+  }
 
   return (
     <div>
@@ -30,10 +32,16 @@ const ImgView = (props) => {
         views:
         {img.views}
       </p>
-      <Share link={(typeof location !== 'undefined' && location.href) || img.url} />
+      <div>
+        username:
+        {img.user.username}
+      </div>
+      <Favorite id={img.id} />
+      <Share link={`/${img.type}/${img.id}`} />
       <Grid
+        currentImg={img}
         imgs={imgs}
-        loadMore={(offset) => getSimilar(type, img.tags, offset)}
+        loadMore={(startAfter) => getSimilar({ searchParam: img.tags, startAfter })}
       />
 
     </div>
@@ -46,8 +54,6 @@ ImgView.defaultProps = {
 };
 
 ImgView.propTypes = {
-  id: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
   img: PropTypes.any,
   imgs: PropTypes.array,
 };

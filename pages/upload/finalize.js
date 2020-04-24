@@ -1,13 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react';
-import slugify from 'slugify';
 import { useRouter } from 'next/router';
-import firebase, { db, storage } from '../../lib/firebase';
+import slugify from '../../lib/slugify';
+import firebase, { db } from '../../lib/firebase';
 import Login from '../../components/login';
 import Layout from '../../components/layout';
 
 export default function Finalize() {
   const [imgUrl, setImg] = useState('');
-  const [tags, setTag] = useState([]);
+  const [tags, setTags] = useState([]);
   const [disabled, setDisabled] = useState(false);
   const [user, setUser] = useState(firebase.auth().currentUser);
   const router = useRouter();
@@ -35,7 +35,7 @@ export default function Finalize() {
         tagRef.current.value = '';
         return;
       }
-      setTag((t) => ([
+      setTags((t) => ([
         ...t,
         slug,
       ]));
@@ -49,32 +49,40 @@ export default function Finalize() {
       console.error('Not User');
       return;
     }
-    const name = new Date().getTime().toString();
+    const name = `${tags[0]}_${new Date().getTime().toString()}`;
     const blob = await fetch(imgUrl).then((res) => res.blob());
     const fileType = blob.type.split('/')[1];
-    const collection = fileType === 'gif' ? 'gifs' : 'memes';
-    const img = storage.ref().child(`/${collection}/${name}.${fileType}`);
+    const type = fileType === 'gif' ? 'gifs' : 'memes';
+    const storage = firebase.storage();
+    const img = storage.ref().child(`/${type}/${name}.${fileType}`);
 
-    img.put(blob).then(async ({ ref }) => {
-      const userRef = db.doc(`users/${user.uid}`);
+    const localUser = JSON.parse(localStorage.getItem('user'));
+    img.put(blob, { user: user.uid }).then(() => {
+      const url = `https://firebasestorage.googleapis.com/v0/b/eiphyappfinal.appspot.com/o/${type}%2F${name}_600x315.${fileType}?alt=media`;
+      const thumb = `https://firebasestorage.googleapis.com/v0/b/eiphyappfinal.appspot.com/o/${type}%2F${name}_200x200.${fileType}?alt=media`;
+
       const postData = {
         tags,
-        url: (await ref.getDownloadURL()).split('&token')[0],
+        url,
+        thumb,
         meta: {},
         isPublic: true,
         sourceUrl: '',
         views: 0,
         createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-        user: userRef,
+        user: {
+          [user.uid]: {
+            username: localUser.username,
+            displayName: localUser.displayName,
+            photoURL: localUser.photoURL,
+          },
+        },
+        type,
       };
-      const newPost = db.collection(collection).add(postData);
-      newPost
+
+      db.collection('posts').add(postData)
         .then((o) => {
-          router.push(`/${collection}/${o.id}`);
-        })
-        .catch((e) => {
-          setDisabled(true);
-          console.error(e);
+          router.push(`/${type}/${o.id}`);
         });
     }).catch((e) => {
       setDisabled(true);
@@ -84,7 +92,7 @@ export default function Finalize() {
 
 
   let uploadButton = (
-    <button disabled={disabled} type="button" onClick={(e) => onUploadHandler(e)}>
+    <button disabled={disabled || tags.length < 3} type="button" onClick={(e) => onUploadHandler(e)}>
       Upload
       Gif
     </button>
@@ -92,6 +100,7 @@ export default function Finalize() {
   if (!user) {
     uploadButton = <Login />;
   }
+  const deleteTag = (tag) => () => { setTags((allTags) => allTags.filter((t) => t !== tag)); };
   return (
     <Layout>
       <div className="container text-center">
@@ -103,7 +112,7 @@ export default function Finalize() {
             <form onSubmit={(e) => onAddTagHandler(e)}>
               <label htmlFor="tags">
                 <input ref={tagRef} id="tags" type="text" />
-                <button type="submit" className="">
+                <button type="submit" className="" disabled={tags.length > 10}>
                   add
                 </button>
               </label>
@@ -111,7 +120,11 @@ export default function Finalize() {
             <ul>
               {
                 tags.map((tag, key) => (
-                  <li key={key}>{tag}</li>
+                  <li key={key}>
+                    {tag}
+                    {' '}
+                    <button type="button" onClick={deleteTag(tag)}>Delete</button>
+                  </li>
                 ))
               }
             </ul>

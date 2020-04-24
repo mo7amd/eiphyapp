@@ -9,7 +9,7 @@ class Share extends Component {
       try {
         window.addthis.layers.refresh();
       } catch (e) {
-        console.log(e);
+        console.error(e);
       }
     });
   }
