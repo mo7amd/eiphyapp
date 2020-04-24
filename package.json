@@ -6,7 +6,8 @@
     "dev": "next dev -p 2020",
     "build": "next build && next export && cp-cli .next functions/next",
     "start": "next start",
-    "emulate": "firebase serve"
+    "emulate": "firebase serve",
+    "deploy": "npm run build && firebase deploy"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.13.0",

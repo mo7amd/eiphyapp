@@ -12,7 +12,7 @@ function Meme({ id, img, imgs }) {
 
 // This function gets called at build time
 export async function getStaticPaths() {
-  const imgs = await search('memes', null, null, 1000);
+  const imgs = await search({ type: 'memes', limit: 1000 });
 
   const paths = imgs.map((img) => ({
     params: { id: img.id, img },
