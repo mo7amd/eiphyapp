@@ -7,12 +7,12 @@ exports.postOnCreate = functions.firestore
   .document('posts/{postId}')
   .onCreate((snap, context) => {
     const { tags, type } = snap.data();
-    const increment = app.firestore.FieldValue.increment(1);
-    const tagsRef = app.database().ref('tags/');
+    const increment = admin.firestore.FieldValue.increment(1);
+    const tagsRef = app.database().ref('tags');
     const tagsCollection = app.firestore().collection('tags');
 
-    const promises = tags.map((tag) => Promise.all(tagsRef.child(tag).set(true),
-      tagsCollection.doc(tag).set({ all: increment, [type]: increment })));
+    const promises = tags.map((tag) => Promise.all([tagsRef.child(tag).set(true),
+      tagsCollection.doc(tag).set({ all: increment, [type]: increment })]));
 
 
     return Promise.all(promises);
