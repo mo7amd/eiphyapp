@@ -11,7 +11,7 @@ const SearchField = () => {
   }, [searchParam]);
 
   return (
-    <div>
+    <aside className="search-tool">
       <input
         type="search"
         value={searchValue}
@@ -25,9 +25,9 @@ const SearchField = () => {
           router.push(`/search/${searchValue}`);
         }}
       >
-        search
+        <span className="fa fa-search" />
       </button>
-    </div>
+    </aside>
   );
 };
 

@@ -15,12 +15,6 @@
     "@zeit/next-sass": "^1.0.1",
     "bootstrap": "^4.3.1",
     "cp-cli": "^2.0.0",
-    "eslint": "^6.8.0",
-    "eslint-config-airbnb": "^18.1.0",
-    "eslint-plugin-import": "^2.20.2",
-    "eslint-plugin-jsx-a11y": "^6.2.3",
-    "eslint-plugin-react": "^7.19.0",
-    "eslint-plugin-react-hooks": "^3.0.0",
     "firebase": "^7.14.2",
     "next": "9.3.5",
     "next-purgecss": "^4.0.0",
@@ -35,6 +29,12 @@
     "slugify": "^1.4.0"
   },
   "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb": "^18.1.0",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.19.0",
+    "eslint-plugin-react-hooks": "^3.0.0",
     "babel-eslint": "^10.1.0",
     "eslint-plugin-babel": "^5.3.0"
   }

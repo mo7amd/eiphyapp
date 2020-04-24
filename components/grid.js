@@ -21,9 +21,9 @@ const Grid = (props) => {
   }, [propImgs]);
 
   return (
-    <div>
+    <>
       {imgs.map((img, key) => currentImg.id !== img.id && (
-        <div key={key}>
+        <div key={key} className="img-card">
           <Link href={`/${img.type}/${img.id}`}>
             <a>
               <img
@@ -38,6 +38,7 @@ const Grid = (props) => {
       {hasMore && imgs && imgs.length >= 10 && (
       <button
         type="button"
+        className="load-more-button"
         onClick={() => {
           loadMore(imgs[imgs.length - 1].id).then((data) => {
             if (!data || !data.length || data.length < 10) {
@@ -52,7 +53,7 @@ const Grid = (props) => {
         Load More
       </button>
       )}
-    </div>
+    </>
   );
 };
 

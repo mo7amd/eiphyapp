@@ -9,7 +9,7 @@ const Login = () => {
   return (
     <FacebookLoginButton
       id="fb_login"
-      text="Facebook"
+      text="Login"
       disabled={disabled}
       onClick={() => {
         setDisabled(true);
