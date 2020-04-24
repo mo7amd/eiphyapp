@@ -6,7 +6,7 @@ import Header from './header';
 const Layout = ({ children }) => (
   <>
     <Header />
-    <main>
+    <main className="main-layout">
       {children}
     </main>
     <Footer />

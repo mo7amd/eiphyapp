@@ -11,23 +11,26 @@ const SearchField = () => {
   }, [searchParam]);
 
   return (
-    <div>
-      <input
-        type="search"
-        value={searchValue}
-        onChange={(e) => {
-          setSearchValue(e.target.value);
-        }}
-      />
-      <button
-        type="button"
-        onClick={() => {
-          router.push(`/search/${searchValue}`);
-        }}
+    <aside className="search-tool">
+      <form onSubmit={(e) => {
+        e.preventDefault();
+        router.push(`/search/${searchValue}`);
+      }}
       >
-        search
-      </button>
-    </div>
+        <input
+          type="search"
+          value={searchValue}
+          onChange={(e) => {
+            setSearchValue(e.target.value);
+          }}
+        />
+        <button
+          type="submit"
+        >
+          <span className="fa fa-search" />
+        </button>
+      </form>
+    </aside>
   );
 };
 
