@@ -7,11 +7,13 @@ const app = admin.apps.length === 0 ? admin.initializeApp() : admin.app();
 
 exports.searchTags = functions.https.onRequest(async (req, res) => {
   const tags = await app.database().ref('tags/').once('value').then((snapshot) => snapshot.val());
-
+  console.log('tags', tags);
   const { searchParam } = req.query;
   let results = [];
   if (searchParam) {
-    index.add(Object.keys(tags));
+    const strings = Object.keys(tags);
+    console.log('strings', strings);
+    index.add(strings);
     results = index.search(searchParam, 10);
   }
 

@@ -11,7 +11,13 @@ const Grid = (props) => {
     setImgs((await loadMore()));
   };
   useEffect(() => {
-    if (!imgs || !(Object.keys(imgs) || imgs).length) { init(); }
+    if (!imgs || !(Object.keys(imgs) || imgs).length) {
+      if (propImgs && propImgs.length) {
+        setImgs(propImgs);
+      } else {
+        init();
+      }
+    }
   }, [propImgs]);
 
   return (

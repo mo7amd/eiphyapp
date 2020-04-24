@@ -1,14 +1,7 @@
-import Layout from '../../components/layout';
-import ImgView from '../../components/imgView';
 import { getPostById, search, getSimilar } from '../../lib/query';
+import ViewPage from '../../components/viewPage';
 
-function Meme({ id, img, imgs }) {
-  return (
-    <Layout>
-      {(id && <ImgView type="memes" id={id} img={img} imgs={imgs} />) || false}
-    </Layout>
-  );
-}
+const Meme = ViewPage;
 
 // This function gets called at build time
 export async function getStaticPaths() {

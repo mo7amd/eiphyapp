@@ -1,14 +1,7 @@
-import Layout from '../../components/layout';
-import ImgView from '../../components/imgView';
 import { getPostById, search, getSimilar } from '../../lib/query';
+import ViewPage from '../../components/viewPage';
 
-function Gif({ id, img, imgs }) {
-  return (
-    <Layout>
-      {(id && <ImgView type="gifs" id={id} img={img} imgs={imgs} />) || false}
-    </Layout>
-  );
-}
+const Gif = ViewPage;
 
 // This function gets called at build time
 export async function getStaticPaths() {
