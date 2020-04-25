@@ -34,7 +34,7 @@ exports.searchTags = functions.https.onRequest(async (req, res) => {
       }
     }
 
-    results = await index.search(searchParam, 50);
+    results = await index.search(searchParam, 10);
 
     for (let i = 0, len = results.length; i < len; i++) {
       results[i] = tagsArr[results[i]];
