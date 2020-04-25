@@ -31,7 +31,6 @@ img {
   max-width: 100%;
 }
 #__next {
-  @extend .container;
   margin: auto;
   font-family: "lucida grande", tahoma, verdana, arial, sans-serif;
   font-size: 17px;
@@ -179,9 +178,6 @@ img {
   flex-wrap: wrap;
   align-items: center;
   .img-card {
-    @extend .col-lg-4;
-    @extend .col-md-6;
-    @extend .col-sm-12;
     display: flex;
     align-items: center;
     justify-content: center;
