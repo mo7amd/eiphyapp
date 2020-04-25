@@ -41,7 +41,9 @@ function SearchPage({ imgs }) {
       {searchParam && (
       <Grid
         imgs={imgs}
-        loadMore={(startAfter) => search({ type, searchParam, startAfter })}
+        loadMore={(startAfter) => search({
+          type, searchParam, startAfter, fulltext: true,
+        })}
       />
       )}
 
@@ -51,19 +53,19 @@ function SearchPage({ imgs }) {
 
 export default SearchPage;
 
-export async function getStaticPaths() {
-  return {
-    paths: [],
-    fallback: true,
-  };
-}
-
-export async function getStaticProps({ params: { searchParam } }) {
-  const imgs = await search({ searchParam });
-
-  return {
-    props: {
-      imgs,
-    },
-  };
-}
+// export async function getStaticPaths() {
+//   return {
+//     paths: [],
+//     fallback: true,
+//   };
+// }
+//
+// export async function getStaticProps({ params: { searchParam } }) {
+//   const imgs = await search({ searchParam, fulltext: true });
+//
+//   return {
+//     props: {
+//       imgs,
+//     },
+//   };
+// }

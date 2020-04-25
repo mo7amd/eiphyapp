@@ -7,16 +7,21 @@ exports.postOnCreate = functions.firestore
   .document('posts/{postId}')
   .onCreate((snap, context) => {
     const { tags, type } = snap.data();
-    const tagsRef = app.database().ref('tags/');
+    const increment = admin.firestore.FieldValue.increment(1);
+    const db = app.firestore();
+    const batch = db.batch();
 
-    const promises = tags.map((tag) => tagsRef.child(tag)
-      .transaction((tagData = {}) => {
-        const { all = 0, [type]: tagType = 0 } = tagData || {};
-        return {
-          all: all + 1,
-          [type]: tagType + 1,
-        };
-      }));
+    const tagsRef = app.database().ref('tags');
+    const tagsCollection = db.collection('tags');
+
+    const promises = [];
+    for (let i = tags.length; i--;) {
+      const tag = tags[i];
+      batch.set(tagsCollection.doc(tag), { all: increment, [type]: increment });
+      promises.push(tagsRef.child(tag).set(true));
+    }
+
+    promises.push(batch.commit());
 
     return Promise.all(promises);
   });

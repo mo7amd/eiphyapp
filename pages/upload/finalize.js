@@ -49,17 +49,23 @@ export default function Finalize() {
       console.error('Not User');
       return;
     }
-    const name = `${tags[0]}_${new Date().getTime().toString()}`;
+    const date = new Date();
+    const folder = `${date.getFullYear().toString().substring(2)}${date.getMonth() + 1}${date.getDate()}`;
+
+    const tagsName = tags.join('_').substring(0, 20);
+    const suffix = date.getTime().toString().substring(5);
+    const name = `${tagsName}_${suffix}`;
+
     const blob = await fetch(imgUrl).then((res) => res.blob());
     const fileType = blob.type.split('/')[1];
     const type = fileType === 'gif' ? 'gifs' : 'memes';
     const storage = firebase.storage();
-    const img = storage.ref().child(`/${type}/${name}.${fileType}`);
+    const img = storage.ref().child(`/${type}/${folder}/${name}.${fileType}`);
 
     const localUser = JSON.parse(localStorage.getItem('user'));
     img.put(blob, { user: user.uid }).then(() => {
-      const url = `https://firebasestorage.googleapis.com/v0/b/eiphyappfinal.appspot.com/o/${type}%2F${name}_600x315.${fileType}?alt=media`;
-      const thumb = `https://firebasestorage.googleapis.com/v0/b/eiphyappfinal.appspot.com/o/${type}%2F${name}_200x200.${fileType}?alt=media`;
+      const url = `https://firebasestorage.googleapis.com/v0/b/eiphyappfinal.appspot.com/o/${type}%2F${folder}%2F${name}_600x315.${fileType}?alt=media`;
+      const thumb = `https://firebasestorage.googleapis.com/v0/b/eiphyappfinal.appspot.com/o/${type}%2F${folder}%2F${name}_200x200.${fileType}?alt=media`;
 
       const postData = {
         tags,
@@ -82,7 +88,9 @@ export default function Finalize() {
 
       db.collection('posts').add(postData)
         .then((o) => {
-          router.push(`/${type}/${o.id}`);
+          setTimeout(() => {
+            window.location.href = `/${type}/${o.id}`;
+          }, 1500);
         });
     }).catch((e) => {
       setDisabled(true);

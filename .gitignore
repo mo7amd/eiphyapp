@@ -34,3 +34,4 @@ package-lock.json
 .firebase
 firebase-debug.log
 functions/next
+.private

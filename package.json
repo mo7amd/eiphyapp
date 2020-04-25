@@ -7,7 +7,8 @@
     "build": "next build && next export && cp-cli .next functions/next",
     "start": "next start",
     "emulate": "firebase serve",
-    "deploy": "npm run build && firebase deploy"
+    "deploy": "npm run build && firebase deploy && npm run afterDeploy",
+    "afterDeploy": "node afterDeploy"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.13.0",
@@ -16,6 +17,7 @@
     "bootstrap": "^4.3.1",
     "cp-cli": "^2.0.0",
     "firebase": "^7.14.2",
+    "isomorphic-fetch": "^2.2.1",
     "next": "9.3.5",
     "next-purgecss": "^4.0.0",
     "next-seo": "^4.4.0",
@@ -25,6 +27,7 @@
     "react-dom": "16.13.1",
     "react-dropzone": "^10.2.2",
     "react-social-login-buttons": "^3.0.0",
+    "request": "latest",
     "sass-loader": "^8.0.2",
     "slugify": "^1.4.0"
   },
