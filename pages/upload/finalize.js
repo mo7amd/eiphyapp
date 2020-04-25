@@ -24,7 +24,7 @@ export default function Finalize() {
   const onAddTagHandler = (e) => {
     e.preventDefault();
     const value = keywordRef.current && keywordRef.current.value;
-    if (typeof value === 'string' && value !== '' && value.length <= 50) {
+    if (typeof value === 'string' && value !== '' && value.length <= 50 && keywords.length <= 10) {
       if (keywords.includes(value)) {
         keywordRef.current.value = '';
         return;
@@ -117,7 +117,7 @@ export default function Finalize() {
             <form onSubmit={(e) => onAddTagHandler(e)}>
               <label htmlFor="keywords">
                 <input ref={keywordRef} id="keywords" type="text" />
-                <button type="submit" className="" disabled={keywords.length > 10 || (keywordRef.current && keywordRef.current.value && keywordRef.current.value.length > 50)}>
+                <button type="submit" className="" disabled={keywords.length > 10}>
                   add
                 </button>
               </label>
