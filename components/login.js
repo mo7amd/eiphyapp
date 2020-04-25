@@ -8,6 +8,7 @@ const Login = () => {
 
   return (
     <FacebookLoginButton
+      className="login"
       id="fb_login"
       text="Login"
       disabled={disabled}

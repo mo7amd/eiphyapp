@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { useRouter } from 'next/router';
 
 const SearchField = () => {
@@ -22,6 +24,7 @@ const SearchField = () => {
         <input
           type="search"
           value={searchValue}
+          placeholder="Search all the GIFs and memes"
           onChange={(e) => {
             setSearchValue(e.target.value);
           }}
@@ -29,7 +32,7 @@ const SearchField = () => {
         <button
           type="submit"
         >
-          <span className="fa fa-search" />
+          <FontAwesomeIcon icon={faSearch} rotation={90} size="xl" color="white" swapOpacity/>
         </button>
       </form>
     </aside>
