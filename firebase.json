@@ -11,10 +11,19 @@
   },
   "hosting": {
     "public": "out",
+    "cleanUrls": true,
     "rewrites": [
       {
-        "source": "**/**",
-        "function": "next"
+        "source": "/search/**",
+        "destination": "/search/[searchParam].html"
+      },
+      {
+        "source": "/gifs{,/**}",
+        "function": "gifsPage"
+      },
+      {
+        "source": "/memes{,/**}",
+        "function": "memesPage"
       }
     ],
     "ignore": [
