@@ -53,19 +53,19 @@ function SearchPage({ imgs }) {
 
 export default SearchPage;
 
-export async function getStaticPaths() {
-  return {
-    paths: [],
-    fallback: true,
-  };
-}
-
-export async function getStaticProps({ params: { searchParam } }) {
-  const imgs = await search({ searchParam, fulltext: true });
-
-  return {
-    props: {
-      imgs,
-    },
-  };
-}
+// export async function getStaticPaths() {
+//   return {
+//     paths: [],
+//     fallback: true,
+//   };
+// }
+//
+// export async function getStaticProps({ params: { searchParam } }) {
+//   const imgs = await search({ searchParam, fulltext: true });
+//
+//   return {
+//     props: {
+//       imgs,
+//     },
+//   };
+// }
