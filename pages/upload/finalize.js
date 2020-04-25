@@ -61,8 +61,8 @@ export default function Finalize() {
 
     const localUser = JSON.parse(localStorage.getItem('user'));
     img.put(blob, { user: user.uid }).then(() => {
-      const url = `https://firebasestorage.googleapis.com/v0/b/eiphyappfinal.appspot.com/o/${type}%2F${folder}%2F${name}_600x315.${fileType}?alt=media`;
-      const thumb = `https://firebasestorage.googleapis.com/v0/b/eiphyappfinal.appspot.com/o/${type}%2F${folder}%2F${name}_200x200.${fileType}?alt=media`;
+      const url = `https://firebasestorage.googleapis.com/v0/b/eiphyappfinal.appspot.com/o/${type}%2F${folder}%2F${name}_700x700.${fileType}?alt=media`;
+      const thumb = `https://firebasestorage.googleapis.com/v0/b/eiphyappfinal.appspot.com/o/${type}%2F${folder}%2F${name}_300x300.${fileType}?alt=media`;
 
       const postData = {
         tags,
