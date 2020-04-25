@@ -14,7 +14,9 @@ const SearchField = () => {
     <aside className="search-tool">
       <form onSubmit={(e) => {
         e.preventDefault();
-        router.push(`/search/${searchValue}`);
+        if (searchValue && searchValue.length > 1) {
+          router.push(`/search/${searchValue}`);
+        }
       }}
       >
         <input

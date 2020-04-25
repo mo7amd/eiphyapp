@@ -2,6 +2,10 @@ const withSass = require('@zeit/next-sass');
 const withPurgeCss = require('next-purgecss');
 
 module.exports = withSass(withPurgeCss({
+  target: 'experimental-serverless-trace',
+  purgeCss: {
+    whitelist: ['body'],
+  },
   purgeCssEnabled: ({ dev, isServer }) => (!dev && !isServer),
   env: {
     MAX_FILE_SIZE: 5,

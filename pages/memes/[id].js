@@ -1,7 +1,5 @@
-import { getPostById, search, getSimilar } from '../../lib/query';
+import { getPostById, getSimilar, search } from '../../lib/query';
 import ViewPage from '../../components/viewPage';
-
-const Meme = ViewPage;
 
 // This function gets called at build time
 export async function getStaticPaths() {
@@ -28,4 +26,4 @@ export async function getStaticProps({ params: { id, img: imgParams, imgs: imgsP
   return { props: { id, img, imgs } };
 }
 
-export default Meme;
+export default ViewPage;
