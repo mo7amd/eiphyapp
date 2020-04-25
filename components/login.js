@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { FacebookLoginButton } from 'react-social-login-buttons';
 import slugify from 'slugify';
 import firebase, { db } from '../lib/firebase';
+import { slugOptions } from '../lib/slugify';
 
 const Login = () => {
   const [disabled, setDisabled] = useState(false);
@@ -30,7 +31,7 @@ const Login = () => {
           const newUser = {
             ...providerData[0],
             uid,
-            username: username || (email && email.split('@')[0]) || (slugify(displayName)),
+            username: username || (email && email.split('@')[0]) || (slugify(displayName, slugOptions)),
             email,
             displayName,
             photoURL,

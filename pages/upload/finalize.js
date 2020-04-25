@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import slugify from '../../lib/slugify';
+import slugify, { slugOptions } from '../../lib/slugify';
 import firebase, { db } from '../../lib/firebase';
 import Login from '../../components/login';
 import Layout from '../../components/layout';
@@ -25,7 +25,7 @@ export default function Finalize() {
     e.preventDefault();
     let value = keywordRef.current && keywordRef.current.value;
     if (typeof value === 'string' && value !== '' && value.length <= 50 && keywords.length <= 10) {
-      value = value.toLowerCase().replace(/\s/g, '_');
+      value = value.trim().toLowerCase().replace(/\s/g, '_');
       if (keywords.includes(value)) {
         keywordRef.current.value = '';
         return;
@@ -48,7 +48,7 @@ export default function Finalize() {
     const folder = `${date.getFullYear().toString().substring(2)}${date.getMonth() + 1}${date.getDate()}`;
 
     const tags = Array.from(new Set(keywords
-      .map((keyword) => slugify(keyword, { lower: true, strict: true }))));
+      .map((keyword) => slugify(keyword, slugOptions))));
     const tagsName = tags.join('_').substring(0, 20);
     const suffix = date.getTime().toString().substring(5);
     const name = `${tagsName}_${suffix}`;
@@ -90,7 +90,7 @@ export default function Finalize() {
           fetch(href).then(() => {
             setTimeout(() => {
               window.location.href = href;
-            }, 500);
+            }, 1000);
           });
         });
     }).catch((e) => {
