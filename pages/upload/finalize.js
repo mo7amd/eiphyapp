@@ -86,9 +86,12 @@ export default function Finalize() {
 
       db.collection('posts').add(postData)
         .then((o) => {
-          setTimeout(() => {
-            window.location.href = `/${type}/${o.id}`;
-          }, 1500);
+          const href = `/${type}/${o.id}`;
+          fetch(href).then(() => {
+            setTimeout(() => {
+              window.location.href = href;
+            }, 500);
+          });
         });
     }).catch((e) => {
       setDisabled(true);

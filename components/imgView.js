@@ -8,7 +8,7 @@ import { getSimilar } from '../lib/query';
 import SEO from '../next-seo.config';
 import Share from './share';
 import Favorite from './favorite';
-import firebase from '../lib/firebase';
+import firebase, { config } from '../lib/firebase';
 
 const ImgView = (props) => {
   const {
@@ -40,7 +40,7 @@ const ImgView = (props) => {
             {img.user.username}
           </h4> */}
           <Favorite id={img.id} />
-          <Share link={`/${img.type}/${img.id}`} />
+          <Share link={`${config.frontend}/${img.type}/${img.id}`} />
         </div>
       </div>
       <Grid
