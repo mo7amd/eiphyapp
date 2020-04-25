@@ -25,7 +25,7 @@ export default function Finalize() {
     e.preventDefault();
     let value = keywordRef.current && keywordRef.current.value;
     if (typeof value === 'string' && value !== '' && value.length <= 50 && keywords.length <= 10) {
-      value = value.toLowerCase();
+      value = value.toLowerCase().replace(/\s/g, '_');
       if (keywords.includes(value)) {
         keywordRef.current.value = '';
         return;
