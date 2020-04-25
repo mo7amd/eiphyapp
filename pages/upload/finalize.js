@@ -23,8 +23,9 @@ export default function Finalize() {
   }, [keywords]);
   const onAddTagHandler = (e) => {
     e.preventDefault();
-    const value = keywordRef.current && keywordRef.current.value;
+    let value = keywordRef.current && keywordRef.current.value;
     if (typeof value === 'string' && value !== '' && value.length <= 50 && keywords.length <= 10) {
+      value = value.toLowerCase();
       if (keywords.includes(value)) {
         keywordRef.current.value = '';
         return;
