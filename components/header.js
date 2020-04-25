@@ -13,7 +13,7 @@ const Header = (props) => (
       <div className="main-header__logo">
         <Link href="/">
           <a>
-            <h3 className="masthead-brand">Eiphy logo</h3>
+            <img className="main-header__logo" src="../static/logo/logo.gif" />
           </a>
         </Link>
         <nav className="nav nav-masthead justify-content-center" />

@@ -2,8 +2,7 @@
 @import  "~bootstrap/scss/variables";
 @import  "~bootstrap/scss/mixins/_breakpoints";
 @import  "~bootstrap/scss/bootstrap";
-@import  "~@fortawesome/fontawesome-free/scss/fontawesome";
-@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+@import url("https://fonts.googleapis.com/css?family=Roboto&display=swap");
 
 /* almarai-regular - arabic */
 @font-face {
@@ -21,7 +20,7 @@
 
 .main-body {
   color: white;
-  background-color: #191919;
+  background-color: #000;
   font-family: 'Almarai', 'serif', Arial, sans-serif !important;
 }
 
@@ -53,11 +52,29 @@ img {
 #__next {
   @extend .container;
   margin: auto;
+  font-family: "lucida grande", tahoma, verdana, arial, sans-serif;
+  font-size: 17px;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  letter-spacing: normal;
+  line-height: 1;
+  overflow: visible;
+  padding: 0;
+  text-align: left;
+  text-decoration: none;
+  text-indent: 0;
+  text-shadow: none;
+  text-transform: none;
+  visibility: visible;
+  white-space: normal;
+  word-spacing: normal;
 }
 .main-header {
   display: flex;
   align-items: center;
-  margin: 30px auto;
+  margin: 10px auto;
+  font: inherit;
   &__links {
     justify-self: flex-end;
     margin-left: auto;
@@ -65,28 +82,48 @@ img {
     align-items: center;
     justify-content: center;
     a, button {
-      margin-right: 15px;
+      cursor: pointer;
+      margin-top: 10px;
+      margin-left: 14px;
+      padding: 8.5px 16px;
+      display: inline-block;
+      background-size: 200% 50%;
+      background: -webkit-linear-gradient(347deg,#6157ff,#7067ff,#6157ff);
+      background: linear-gradient(103deg,#6157ff,#7067ff,#6157ff);
       border: none;
       color: #fff;
-      padding: 8.5px 16px;
     }
-    a {
-      background: linear-gradient(103deg,#6157ff,#7067ff,#6157ff);
+    a:hover {
+      text-decoration: none;
     }
     button {
       background: linear-gradient(103deg,#fc6665,#fc6665,#fc6665);
     }
   }
   &__logo {
-
+    width: 55%;
+  }
+  .login {
+    margin:0 !important;
+    margin-top: 9px !important;
+    height: 35px !important;
+    border-radius: 0 !important;
+    margin-left: 14px !important;
+    padding: 8.5px 16px !important;
+    font: inherit !important;
   }
 }
 .search-tool {
+  position: sticky;
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
-  margin-bottom: 30px;
+  top : 0;
+  border-bottom: 15px solid black;
+  border-top: 15px solid black;
+  z-index: 1;
+  margin-bottom: 3%;
   form {
     display: flex;
     align-items: center;
@@ -97,18 +134,46 @@ img {
     width: 100%;
     height: 52px;
     outline: none;
+    letter-spacing: 1px;
+    font-size: 18px;
+    border-radius: 0;
     border-width: 0;
-    border-top-left-radius: 4px;
-    border-bottom-left-radius: 4px;
-    padding: 0 20px;
+    margin: 0;
+    padding: 15px;
+    font: inherit;
+  }
+  input::-webkit-input-placeholder { /* Edge */
+    color: #b1b1b1;
+    font: inherit;
+  }
+
+  input:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: #b1b1b1;
+    font: inherit;
+  }
+
+  input::placeholder {
+    color: #b1b1b1;
+    font: inherit;
   }
   button {
     width: 52px;
     height: 52px;
-    background: linear-gradient(45deg, rgb(153, 51, 255) 0%, rgb(255, 102, 102) 100%);
     border: none;
-    border-top-right-radius: 4px;
-    border-bottom-right-radius: 4px;
+    background: linear-gradient(45deg, #9933ff, #ff6666);
+    background-size: 200% 200%;
+    animation: gradient 5s ease infinite;
+    @keyframes gradient {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
   }
 }
 .main-layout {
@@ -156,3 +221,4 @@ img {
     flex-direction: column;
   }
 }
+
