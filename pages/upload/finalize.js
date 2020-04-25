@@ -24,7 +24,7 @@ export default function Finalize() {
   const onAddTagHandler = (e) => {
     e.preventDefault();
     const value = keywordRef.current && keywordRef.current.value;
-    if (typeof value === 'string' && value !== '') {
+    if (typeof value === 'string' && value !== '' && value.length <= 50) {
       if (keywords.includes(value)) {
         keywordRef.current.value = '';
         return;
