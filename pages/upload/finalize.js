@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useRouter } from 'next/router';
 import slugify from '../../lib/slugify';
 import firebase, { db } from '../../lib/firebase';
 import Login from '../../components/login';
@@ -7,37 +6,33 @@ import Layout from '../../components/layout';
 
 export default function Finalize() {
   const [imgUrl, setImg] = useState('');
-  const [tags, setTags] = useState([]);
+  const [keywords, setKeywords] = useState([]);
   const [disabled, setDisabled] = useState(false);
   const [user, setUser] = useState(firebase.auth().currentUser);
-  const router = useRouter();
 
   firebase.auth().onAuthStateChanged((user) => {
     setUser(user);
   });
 
-  const tagRef = useRef();
+  const keywordRef = useRef();
   useEffect(() => {
     setImg(localStorage.getItem(process.env.IMG_PREVIEW));
   }, []);
   useEffect(() => {
-    tagRef.current.value = '';
-  }, [tags]);
+    keywordRef.current.value = '';
+  }, [keywords]);
   const onAddTagHandler = (e) => {
     e.preventDefault();
-    const value = tagRef.current && tagRef.current.value;
-    if (typeof value === 'string' && value !== '') {
-      const slug = slugify(value, {
-        lower: true,
-        strict: true,
-      });
-      if (tags.includes(slug)) {
-        tagRef.current.value = '';
+    let value = keywordRef.current && keywordRef.current.value;
+    if (typeof value === 'string' && value !== '' && value.length <= 50 && keywords.length <= 10) {
+      value = value.toLowerCase();
+      if (keywords.includes(value)) {
+        keywordRef.current.value = '';
         return;
       }
-      setTags((t) => ([
+      setKeywords((t) => ([
         ...t,
-        slug,
+        value,
       ]));
     }
   };
@@ -52,6 +47,8 @@ export default function Finalize() {
     const date = new Date();
     const folder = `${date.getFullYear().toString().substring(2)}${date.getMonth() + 1}${date.getDate()}`;
 
+    const tags = Array.from(new Set(keywords
+      .map((keyword) => slugify(keyword, { lower: true, strict: true }))));
     const tagsName = tags.join('_').substring(0, 20);
     const suffix = date.getTime().toString().substring(5);
     const name = `${tagsName}_${suffix}`;
@@ -69,6 +66,7 @@ export default function Finalize() {
 
       const postData = {
         tags,
+        keywords,
         url,
         thumb,
         meta: {},
@@ -100,7 +98,7 @@ export default function Finalize() {
 
 
   let uploadButton = (
-    <button disabled={disabled || tags.length < 3} type="button" onClick={(e) => onUploadHandler(e)}>
+    <button disabled={disabled || keywords.length < 3} type="button" onClick={(e) => onUploadHandler(e)}>
       Upload
       Gif
     </button>
@@ -108,7 +106,7 @@ export default function Finalize() {
   if (!user) {
     uploadButton = <Login />;
   }
-  const deleteTag = (tag) => () => { setTags((allTags) => allTags.filter((t) => t !== tag)); };
+  const deleteKeyword = (tag) => () => { setKeywords((allKeywords) => allKeywords.filter((t) => t !== tag)); };
   return (
     <Layout>
       <div className="container text-center">
@@ -118,20 +116,20 @@ export default function Finalize() {
           </div>
           <div key="img-info" className="col-lg-6 col-sm-12">
             <form onSubmit={(e) => onAddTagHandler(e)}>
-              <label htmlFor="tags">
-                <input ref={tagRef} id="tags" type="text" />
-                <button type="submit" className="" disabled={tags.length > 10}>
+              <label htmlFor="keywords">
+                <input ref={keywordRef} id="keywords" type="text" />
+                <button type="submit" className="" disabled={keywords.length > 10}>
                   add
                 </button>
               </label>
             </form>
             <ul>
               {
-                tags.map((tag, key) => (
+                keywords.map((keyword, key) => (
                   <li key={key}>
-                    {tag}
+                    {keyword}
                     {' '}
-                    <button type="button" onClick={deleteTag(tag)}>Delete</button>
+                    <button type="button" onClick={deleteKeyword(keyword)}>Delete</button>
                   </li>
                 ))
               }

@@ -18,9 +18,9 @@
   url('/static/assets/fonts/almarai-v2-arabic-regular.svg#Almarai') format('svg'); /* Legacy iOS */
 }
 
-.main-body {
+body {
   color: white;
-  background-color: #000;
+  background-color: #000 !important;
   font-family: 'Almarai', 'serif', Arial, sans-serif !important;
 }
 
