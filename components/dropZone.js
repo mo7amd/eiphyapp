@@ -1,7 +1,9 @@
 import React, { useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { useRouter } from 'next/router';
+import Jimp from 'jimp';
 import ErrorMsg from './errorMsg';
+
 
 export default function DropZone() {
   const MAX_FILE_SIZE = Math.floor(process.env.MAX_FILE_SIZE * 1024 * 1024);
@@ -13,8 +15,21 @@ export default function DropZone() {
         setError('');
       }
     });
-    localStorage.setItem(process.env.IMG_PREVIEW, URL.createObjectURL(files[0]));
-    router.push('/upload/finalize');
+    const filePath = URL.createObjectURL(files[0]);
+    Jimp.read(filePath)
+      .then((image) => {
+        debugger
+        const newImg = image.resize(600, Jimp.AUTO);
+        const newPath = URL.createObjectURL(newImg);
+        debugger
+        // Do stuff with the image.
+      })
+      .catch((err) => {
+        debugger
+        // Handle an exception.
+      });
+    localStorage.setItem(process.env.IMG_PREVIEW, filePath);
+    // router.push('/upload/finalize');
   }, []);
   const onDropRejected = useCallback((files) => {
     const [file] = files;
