@@ -8,7 +8,7 @@ import { getSimilar } from '../lib/query';
 import SEO from '../next-seo.config';
 import Share from './share';
 import Favorite from './favorite';
-import firebase, { config } from '../lib/firebase';
+import firebase, { db, config } from '../lib/firebase';
 
 const ImgView = (props) => {
   const {
@@ -16,7 +16,14 @@ const ImgView = (props) => {
   } = props;
 
   useEffect(() => {
-    firebase.analytics().logEvent('imgView', { id: img.id });
+    if (img && img.id) {
+      firebase.analytics().logEvent('imgView', { description: img.id });
+      try {
+        (Math.random() < 0.5) && db.collection('posts').doc(img.id).update({ views: firebase.firestore.FieldValue.increment(1) });
+      } catch (e) {
+        console.error(e);
+      }
+    }
   }, []);
 
   if (!img || !(Object.keys(img) || img).length) {
