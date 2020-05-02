@@ -8,7 +8,7 @@ const Grid = (props) => {
   const [imgs, setImgs] = useState(propImgs);
   const [hasMore, setHasMore] = useState(true);
   const [showLoader, setShowLoader] = useState(true);
-  const [colors] = useState(['#07ff98', '#ff6665', '#05ccff','#9933ff','#fff35c']);
+  const colors = ['#07ff98', '#ff6665', '#05ccff','#9933ff','#fff35c'];
 
 
   const init = async () => {
