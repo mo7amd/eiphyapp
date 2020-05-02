@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
+import ProgressiveImage from 'react-progressive-image';
 
 const Grid = (props) => {
   const { imgs: propImgs, loadMore, currentImg } = props;
   const [imgs, setImgs] = useState(propImgs);
   const [hasMore, setHasMore] = useState(true);
   const [showLoader, setShowLoader] = useState(true);
+  const [colors] = useState(['#07ff98', '#ff6665', '#05ccff','#9933ff','#fff35c']);
+
 
   const init = async () => {
     setImgs((await loadMore()));
@@ -48,16 +51,26 @@ const Grid = (props) => {
     }
   }, [propImgs]);
 
+
+  const renderPlaceholder = (height, width) => {
+    const colorPicked = colors[Math.floor(Math.random() * colors.length)];
+
+    return (
+      <div
+        style={{ backgroundColor: colorPicked, height, width }}
+      />
+    );
+  };
+
   return (
     <div className="grid-view">
       {imgs.map((img, key) => currentImg.id !== img.id && (
         <div key={key} className="img-card">
           <Link href={`/${img.type}/${img.id}`}>
             <a>
-              <img
-                src={img.thumb}
-                alt=""
-              />
+              <ProgressiveImage src={img.thumb} placeholder="">
+                {(src, loading) => (loading ? renderPlaceholder(100, 100) : <img src={src} alt="an image" />)}
+              </ProgressiveImage>
             </a>
           </Link>
         </div>
