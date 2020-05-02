@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,800;1,300&display=swap');
 
 $base-grey: #121212;
 
@@ -198,6 +199,39 @@ img {
     width: 100%;
     margin: auto;
   }
+
+  .img-card {
+    position: relative;
+  }
+
+  .img-tags-hover {
+    position: absolute;
+    bottom: 0;
+    visibility: hidden;
+    opacity: 0;
+    color: white;
+    -webkit-box-pack: start;
+    justify-content: flex-start;
+    align-items: flex-end;
+    font-size: 12px;
+    white-space: nowrap;
+    width: 100%;
+    text-overflow: ellipsis;
+    font-weight: 600;
+    box-sizing: border-box;
+    padding: 4px;
+    overflow: hidden;
+    background: linear-gradient(rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.5) 100%);
+    transition: opacity 300ms ease 0s;
+    text-align: left;
+    font-family: 'Open Sans', sans-serif;
+  }
+
+  .img-tags-hover-active {
+    visibility: visible;
+    opacity: 1;
+  }
+
   img {
     //min-width:80%;
     color:yellow;

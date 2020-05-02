@@ -62,10 +62,18 @@ const Grid = (props) => {
     );
   };
 
+  const enableHover = (e) => {
+    e.currentTarget.children[1].className = 'img-tags-hover img-tags-hover-active';
+  }
+
+  const disableHover = (e) => {
+    e.currentTarget.children[1].className = 'img-tags-hover';
+  }
+
   return (
     <div className="grid-view">
       {imgs.map((img, key) => currentImg.id !== img.id && (
-        <div key={key} className="img-card">
+        <div key={key} className="img-card" onMouseOver={enableHover} onMouseLeave={disableHover}>
           <Link href={`/${img.type}/${img.id}`}>
             <a>
               <ProgressiveImage src={img.thumb} placeholder="">
@@ -73,6 +81,13 @@ const Grid = (props) => {
               </ProgressiveImage>
             </a>
           </Link>
+          <div className="img-tags-hover">
+                <span>
+                {img.tags.map((tag) => tag && (
+                  `#${tag} `
+                ))}
+                </span>
+          </div>
         </div>
       ))}
       {showLoader && (
