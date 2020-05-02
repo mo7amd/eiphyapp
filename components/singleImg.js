@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const SingleImg = ({ img }) => (
+const SingleImg = ({ img:{img} }) => (
   <div className="img-viewer__img">
     <div><img src={img.url} alt="" /></div>
   </div>

@@ -76,14 +76,14 @@ const Grid = (props) => {
         <div key={key} className="img-card" onMouseOver={enableHover} onMouseLeave={disableHover}>
           <Link href={`/${img.type}/${img.id}`}>
             <a>
-              <ProgressiveImage src={img.thumb} placeholder="">
-                {(src, loading) => (loading ? renderPlaceholder(100, 100) : <img src={src} alt="an image" />)}
+              <ProgressiveImage src={img.thumb.url} placeholder="">
+                {(src, loading) => (loading ? renderPlaceholder(img.thumb.height, img.thumb.width) : <img src={src} alt="an image" />)}
               </ProgressiveImage>
             </a>
           </Link>
           <div className="img-tags-hover">
                 <span>
-                {img.tags.map((tag) => tag && (
+                {img.keywords.map((tag) => tag && (
                   `#${tag} `
                 ))}
                 </span>

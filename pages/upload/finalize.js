@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useRouter } from 'next/router';
 import slugify, { slugOptions } from '../../lib/slugify';
 import firebase, { db } from '../../lib/firebase';
 import Login from '../../components/login';
@@ -9,6 +10,8 @@ export default function Finalize() {
   const [keywords, setKeywords] = useState([]);
   const [disabled, setDisabled] = useState(false);
   const [user, setUser] = useState(firebase.auth().currentUser);
+  const [dimensions, setDimensions] = useState({ img: { width: 600, hieght: 600 }, thumb: { width: 600, hieght: 600 } });
+  const router = useRouter();
 
   firebase.auth().onAuthStateChanged((user) => {
     setUser(user);
@@ -61,14 +64,20 @@ export default function Finalize() {
 
     const localUser = JSON.parse(localStorage.getItem('user'));
     img.put(blob, { user: user.uid }).then(() => {
-      const url = `https://firebasestorage.googleapis.com/v0/b/eiphyappfinal.appspot.com/o/${type}%2F${folder}%2F${name}_700x700.${fileType}?alt=media`;
-      const thumb = `https://firebasestorage.googleapis.com/v0/b/eiphyappfinal.appspot.com/o/${type}%2F${folder}%2F${name}_300x300.${fileType}?alt=media`;
+      const url = `https://firebasestorage.googleapis.com/v0/b/eiphyappfinal.appspot.com/o/${type}%2F${folder}%2F${name}.${fileType}?alt=media`;
+      const thumb = `https://firebasestorage.googleapis.com/v0/b/eiphyappfinal.appspot.com/o/${type}%2F${folder}%2F${name}_thumb.${fileType}?alt=media`;
 
       const postData = {
         tags,
         keywords,
-        url,
-        thumb,
+        img: {
+          url,
+          ...dimensions.img,
+        },
+        thumb: {
+          url: thumb,
+          ...dimensions.thumb,
+        },
         meta: {},
         isPublic: true,
         sourceUrl: '',
@@ -89,7 +98,7 @@ export default function Finalize() {
           const href = `/${type}/${o.id}`;
           fetch(href).then(() => {
             setTimeout(() => {
-              window.location.href = href;
+              router.push(href);
             }, 1000);
           });
         });
@@ -109,13 +118,33 @@ export default function Finalize() {
   if (!user) {
     uploadButton = <Login />;
   }
-  const deleteKeyword = (tag) => () => { setKeywords((allKeywords) => allKeywords.filter((t) => t !== tag)); };
+  const deleteKeyword = (tag) => () => {
+    setKeywords((allKeywords) => allKeywords.filter((t) => t !== tag));
+  };
+
+  const imgOnLoad = ({ target: { height, width } }) => {
+    const imgRatio = Math.min(600 / width, 600 / height);
+    const thumbRatio = Math.min(300 / width, 300 / height);
+
+    setDimensions({
+      img: { height: height * imgRatio, width: width * imgRatio },
+      thumb: { height: height * thumbRatio, width: width * thumbRatio },
+    });
+  };
+
   return (
     <Layout>
       <div className="container text-center">
         <div className="row">
           <div key="img-viewer" className="col-lg-6 col-sm-12">
-            <img src={imgUrl} alt="" />
+            <img
+              onError={(e) => {
+                router.push('/upload');
+              }}
+              src={imgUrl}
+              alt=""
+              onLoad={imgOnLoad}
+            />
           </div>
           <div key="img-info" className="col-lg-6 col-sm-12">
             <form onSubmit={(e) => onAddTagHandler(e)}>
