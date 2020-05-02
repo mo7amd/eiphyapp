@@ -1,8 +1,16 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto&display=swap");
 
+$base-grey: #121212;
+
 body {
   color: white;
-  background-color: #000 !important;
+  background-color: $base-grey !important;
+}
+
+#layout {
+  margin-left:13%;
+  margin-right:13%;
+  margin-top:1%;
 }
 
 a {
@@ -52,9 +60,11 @@ img {
 }
 .main-header {
   display: flex;
-  align-items: center;
   margin: 10px auto;
   font: inherit;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: center;
   &__links {
     justify-self: flex-end;
     margin-left: auto;
@@ -72,6 +82,9 @@ img {
       background: linear-gradient(103deg,#6157ff,#7067ff,#6157ff);
       border: none;
       color: #fff;
+      flex-wrap: wrap;
+      justify-content: space-evenly;
+      align-items: center;
     }
     a:hover {
       text-decoration: none;
@@ -100,8 +113,8 @@ img {
   justify-content: center;
   width: 100%;
   top : 0;
-  border-bottom: 15px solid black;
-  border-top: 15px solid black;
+  border-bottom: 15px solid $base-grey;
+  border-top: 15px solid $base-grey;
   z-index: 1;
   margin-bottom: 3%;
   form {
@@ -143,6 +156,7 @@ img {
     background: linear-gradient(45deg, #9933ff, #ff6666);
     background-size: 200% 200%;
     animation: gradient 5s ease infinite;
+    cursor: pointer;
     @keyframes gradient {
       0% {
         background-position: 0% 50%;
@@ -157,9 +171,8 @@ img {
   }
 }
 .main-layout {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
+  text-align: center;
+
   .load-more-button {
     height: 40px;
     padding: 0 16px;
@@ -174,21 +187,20 @@ img {
   }
 }
 .grid-view {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  .img-card {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 15px;
-  }
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  grid-gap: 1rem;
+  cursor: pointer;
   &__load-more {
     display: flex;
     width: 100%;
     margin: auto;
   }
+  img {
+    min-width:80%;
+  }
 }
+
 .img-viewer {
   display: flex;
   margin-bottom: 30px;
@@ -199,3 +211,59 @@ img {
   }
 }
 
+
+.lds-ellipsis {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+.lds-ellipsis div {
+  position: absolute;
+  top: 33px;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: #fff;
+  animation-timing-function: cubic-bezier(0, 1, 1, 0);
+}
+.lds-ellipsis div:nth-child(1) {
+  left: 8px;
+  animation: lds-ellipsis1 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(2) {
+  left: 8px;
+  animation: lds-ellipsis2 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(3) {
+  left: 32px;
+  animation: lds-ellipsis2 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(4) {
+  left: 56px;
+  animation: lds-ellipsis3 0.6s infinite;
+}
+@keyframes lds-ellipsis1 {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes lds-ellipsis3 {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+@keyframes lds-ellipsis2 {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(24px, 0);
+  }
+}

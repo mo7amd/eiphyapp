@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { FacebookLoginButton } from 'react-social-login-buttons';
 import slugify from 'slugify';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import firebase, { db } from '../lib/firebase';
 import { slugOptions } from '../lib/slugify';
 
@@ -12,6 +14,14 @@ const Login = () => {
       className="login"
       id="fb_login"
       text="Login"
+      style={{
+        backgroundColor: '#3e3e3e',
+        textAlign: 'center',
+      }}
+      activeStyle={{
+        backgroundColor: '#3e3e3e',
+      }}
+      icon={() => <FontAwesomeIcon icon={faSearch} rotation={90} size="1x" color="white" swapOpacity />}
       disabled={disabled}
       onClick={() => {
         setDisabled(true);

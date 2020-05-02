@@ -6,10 +6,38 @@ const Grid = (props) => {
   const { imgs: propImgs, loadMore, currentImg } = props;
   const [imgs, setImgs] = useState(propImgs);
   const [hasMore, setHasMore] = useState(true);
+  const [showLoader, setShowLoader] = useState(true);
 
   const init = async () => {
     setImgs((await loadMore()));
   };
+
+  useEffect(() => {
+    const handleScroll = (e) => {
+      // Do something here ...
+      const ele = e.currentTarget.scrollingElement;
+      // Condition to check if scroll reached bottom or not
+      const isBottom = ele.scrollHeight - ele.scrollTop === ele.clientHeight;
+      setShowLoader(true);
+      if (hasMore && imgs && imgs.length >= 10 && isBottom) {
+        loadMore(imgs[imgs.length - 1].id).then((data) => {
+          if (!data || !data.length || data.length < 10) {
+            setHasMore(false);
+          }
+          if (data && data.length) {
+            setImgs((oldImgs) => oldImgs.concat(data));
+            setShowLoader(false);
+          }
+        });
+      }
+    };
+    document.addEventListener('scroll', handleScroll, { passive: true });
+    return () => {
+      // This cleans up the event handler when the component unmounts.
+      document.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
   useEffect(() => {
     if (!imgs || !(Object.keys(imgs) || imgs).length) {
       if (propImgs && propImgs.length) {
@@ -34,26 +62,13 @@ const Grid = (props) => {
           </Link>
         </div>
       ))}
-
-      {hasMore && imgs && imgs.length >= 10 && (
-        <div className="grid-view__load-more">
-          <button
-            type="button"
-            className="load-more-button"
-            onClick={() => {
-              loadMore(imgs[imgs.length - 1].id).then((data) => {
-                if (!data || !data.length || data.length < 10) {
-                  setHasMore(false);
-                }
-                if (data && data.length) {
-                  setImgs((oldImgs) => oldImgs.concat(data));
-                }
-              });
-            }}
-          >
-            Load More
-          </button>
-        </div>
+      {showLoader && (
+      <div className="lds-ellipsis ">
+        <div />
+        <div />
+        <div />
+        <div />
+      </div>
       )}
     </div>
   );
