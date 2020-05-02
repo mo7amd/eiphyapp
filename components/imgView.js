@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { DefaultSeo } from 'next-seo';
 import DefaultErrorPage from 'next/error';
+import Link from 'next/link';
 import SingleImg from './singleImg';
 import Grid from './grid';
 import { getSimilar } from '../lib/query';
@@ -50,7 +51,15 @@ const ImgView = (props) => {
           <Share link={`${config.frontend}/${img.type}/${img.id}`} />
         </div>
       </div>
+      <div id="img-tags-container">
+        {img.tags.map((tag, key) => tag && (
+          <Link href={`/search/${tag}`}>
+            <a className="img-tag" key={`${tag}_${key}`} href="#">{`#${tag}`}</a>
+          </Link>
+        ))}
+      </div>
       <Grid
+        style={{ marginTop: '5%' }}
         currentImg={img}
         imgs={imgs}
         loadMore={(startAfter) => getSimilar({ searchParam: img.tags, startAfter })}
