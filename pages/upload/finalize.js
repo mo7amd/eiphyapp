@@ -150,7 +150,7 @@ export default function Finalize() {
             <form onSubmit={(e) => onAddTagHandler(e)}>
               <label htmlFor="keywords">
                 <input onChange={(e) => setKeyword(e.target.value)} id="keywords" type="text" value={keyword} />
-                <button type="submit" className="" disabled={keyword.length === 0 || keyword.length > 50 || keywords.length > 10}>
+                <button type="submit" className="" disabled={disabled || keyword.length < 3 || keyword.length > 50 || keywords.length > 10}>
                   add
                 </button>
               </label>
