@@ -3,20 +3,25 @@
 
 $base-grey: #121212;
 
-body {
+html, body {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  height: 100%;
   color: white;
   background-color: $base-grey !important;
   font-family: 'Roboto', sans-serif;
 }
 
 #layout {
-  margin-left:13%;
-  margin-right:13%;
-  margin-top:1%;
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-top: 1%;
 }
 
 a {
   color: inherit;
+
   &:hover {
     color: inherit;
   }
@@ -37,9 +42,7 @@ a {
   outline: none;
   transition: border .24s ease-in-out;
 }
-img {
-  max-width: 100%;
-}
+
 #__next {
   margin: auto;
   font-family: "lucida grande", tahoma, verdana, arial, sans-serif;
@@ -60,12 +63,15 @@ img {
   white-space: normal;
   word-spacing: normal;
 }
+
 .main-header {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+
   &__links {
     align-self: flex-end;
     text-align: end;
+
     a, button {
       text-decoration: none;
       cursor: pointer;
@@ -74,29 +80,34 @@ img {
       padding: 8.5px 16px;
       display: inline-block;
       background-size: 200% 50%;
-      background: -webkit-linear-gradient(347deg,#6157ff,#7067ff,#6157ff);
-      background: linear-gradient(103deg,#6157ff,#7067ff,#6157ff);
+      background: -webkit-linear-gradient(347deg, #6157ff, #7067ff, #6157ff);
+      background: linear-gradient(103deg, #6157ff, #7067ff, #6157ff);
       border: none;
       color: #fff;
       flex-wrap: wrap;
       justify-content: space-evenly;
       align-items: center;
     }
+
     a:hover {
       text-decoration: none;
     }
+
     button {
-      background: linear-gradient(103deg,#fc6665,#fc6665,#fc6665);
+      background: linear-gradient(103deg, #fc6665, #fc6665, #fc6665);
     }
   }
+
   &__logo {
     align-self: flex-end;
+
     img {
       position: relative;
       top: 6px;
       width: 25%;
     }
   }
+
   .login {
     height: 35px !important;
     border-radius: 0 !important;
@@ -106,23 +117,26 @@ img {
     margin: 0 !important;
   }
 }
+
 .search-tool {
   position: sticky;
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
-  top : 0;
+  top: 0;
   border-bottom: 15px solid $base-grey;
   border-top: 15px solid $base-grey;
   z-index: 1;
   margin-bottom: 3%;
+
   form {
     display: flex;
     align-items: center;
     justify-content: center;
     width: 100%;
   }
+
   input {
     width: 100%;
     height: 52px;
@@ -135,6 +149,7 @@ img {
     padding: 15px;
     font: inherit;
   }
+
   input::-webkit-input-placeholder { /* Edge */
     color: #b1b1b1;
     font: inherit;
@@ -149,6 +164,7 @@ img {
     color: #b1b1b1;
     font: inherit;
   }
+
   button {
     width: 52px;
     height: 52px;
@@ -170,71 +186,9 @@ img {
     }
   }
 }
+
 .main-layout {
   text-align: center;
-
-  .load-more-button {
-    height: 40px;
-    padding: 0 16px;
-    margin: 30px auto;
-    border: none;
-    border-radius: 20px;
-    background-color: #212121;
-    color: #fff;
-    &:hover {
-      color: #00E6CC;
-    }
-  }
-}
-.grid-view {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
-  grid-gap: 1rem;
-  cursor: pointer;
-  &__load-more {
-    display: flex;
-    width: 100%;
-    margin: auto;
-  }
-
-  .img-card {
-    position: relative;
-  }
-
-  .img-tags-hover {
-    position: absolute;
-    bottom: 0;
-    visibility: hidden;
-    opacity: 0;
-    color: white;
-    -webkit-box-pack: start;
-    justify-content: flex-start;
-    align-items: flex-end;
-    font-size: 12px;
-    white-space: nowrap;
-    width: 100%;
-    text-overflow: ellipsis;
-    font-weight: 600;
-    box-sizing: border-box;
-    padding: 4px;
-    overflow: hidden;
-    background: linear-gradient(rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.5) 100%);
-    transition: opacity 300ms ease 0s;
-    text-align: left;
-    font-family: 'Open Sans', sans-serif;
-  }
-
-  .img-tags-hover-active {
-    visibility: visible;
-    opacity: 1;
-  }
-
-  img {
-    //min-width:80%;
-    color:yellow;
-    width: 100%;
-    height: auto;
-  }
 }
 
 .img-viewer {
@@ -243,9 +197,11 @@ img {
   grid-gap: 1rem;
   cursor: pointer;
   margin-bottom: 5%;
+
   &__info {
     text-align: justify;
   }
+
   &__img {
     flex: 2;
     text-align: center;
@@ -261,6 +217,7 @@ img {
   height: 80px;
   margin: auto;
 }
+
 .lds-ellipsis div {
   display: inline-block;
   position: absolute;
@@ -269,21 +226,25 @@ img {
   //background: $base_grey;
   animation: lds-ellipsis 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
 }
+
 .lds-ellipsis div:nth-child(1) {
   left: 8px;
   background-color: #07ff98;
   animation-delay: -0.24s;
 }
+
 .lds-ellipsis div:nth-child(2) {
   left: 32px;
   background-color: #fff35c;
   animation-delay: -0.12s;
 }
+
 .lds-ellipsis div:nth-child(3) {
   left: 56px;
-  background-color:#ff6665;
+  background-color: #ff6665;
   animation-delay: 0s;
 }
+
 @keyframes lds-ellipsis {
   0% {
     top: 8px;
@@ -297,11 +258,12 @@ img {
 
 #img-tags-container {
   text-align: left;
-  margin-bottom: 15%;
+  margin-bottom: 10px;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
   grid-column-gap: 1%;
   grid-row-gap: 5%;
+
   .img-tag {
     text-decoration: none;
     display: inline-block;
@@ -331,8 +293,55 @@ img {
     text-align: left;
     font-family: inherit;
     letter-spacing: normal;
+
     &:hover {
       color: #00E6CC;
     }
+  }
+}
+
+
+// grid
+
+.gridlayout {
+  .item {
+    opacity: 1;
+
+    .img-tags-hover {
+      position: absolute;
+      bottom: 0;
+      visibility: hidden;
+      opacity: 0;
+      color: white;
+      -webkit-box-pack: start;
+      justify-content: flex-start;
+      align-items: flex-end;
+      font-size: 12px;
+      white-space: nowrap;
+      width: 100%;
+      text-overflow: ellipsis;
+      font-weight: 600;
+      box-sizing: border-box;
+      padding: 4px;
+      overflow: hidden;
+      background: linear-gradient(rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.5) 100%);
+      transition: opacity 300ms ease 0s;
+      text-align: left;
+      font-family: 'Open Sans', sans-serif;
+    }
+
+    &:hover .img-tags-hover {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+
+  .loading {
+    position: absolute;
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    font-weight: bold;
   }
 }

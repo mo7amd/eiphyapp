@@ -1,104 +1,129 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
+import { GridLayout } from '@egjs/react-infinitegrid';
 import ProgressiveImage from 'react-progressive-image';
+
+const colors = ['#07ff98', '#ff6665', '#05ccff', '#9933ff', '#fff35c'];
+
+const loading = (
+  <div className="loading">
+    <div className="lds-ellipsis">
+      <div />
+      <div />
+      <div />
+      <div />
+    </div>
+  </div>
+);
+
+function getItems(nextGroupKey, nextKey, imgs, currentImg) {
+  const nextItems = [];
+
+  for (let i = 0, len = imgs.length; i < len; ++i) {
+    const img = imgs[i];
+    if (img.id !== currentImg.id) {
+      nextItems.push({ groupKey: nextGroupKey, key: nextKey + i, img });
+    }
+  }
+  return nextItems;
+}
+
+const imgLoading = (num) => <div style={{ backgroundColor: colors[num % colors.length], width: '100%', height: '100%' }} />;
+
+const Item = ({ img, num }) => (
+  <div
+    key={num}
+    className="item"
+    style={{ height: img.thumb.height, width: img.thumb.width, overflow: 'hidden' }}
+  >
+    <Link href={`/${img.type}/${img.id}`}>
+      <a>
+        <ProgressiveImage
+          src={img.thumb.url}
+          placeholder=""
+          data-width={img.thumb.width}
+          data-height={img.thumb.height}
+        >
+          {(src, loading) => (loading ? imgLoading(num) : <img src={src} alt={img.keywords.join(', ')} />)}
+        </ProgressiveImage>
+        <div className="img-tags-hover">
+          {img.keywords.map((tag) => `#${tag} `)}
+        </div>
+      </a>
+    </Link>
+  </div>
+);
+
+Item.propTypes = {
+  img: PropTypes.object.isRequired,
+  num: PropTypes.number.isRequired,
+};
+
+function onAppend(e, hasMore, imgs, loadMore, setHasMore, setImgs, currentImg) {
+  if (e.currentTarget.isProcessing() || !hasMore || !imgs || imgs.length < 10) {
+    return;
+  }
+
+  const nextGroupKey = (e.groupKey || 0) + 1;
+  const nextKey = imgs.length;
+  e.startLoading();
+  loadMore(imgs[nextKey - 1].img.id)
+    .then((data) => {
+      if (!data || !data.length || data.length < 10) {
+        setHasMore(false);
+      }
+      if (data && data.length) {
+        setImgs(imgs.concat(getItems(nextGroupKey, nextKey, data, currentImg)));
+      }
+      e.endLoading();
+    });
+}
 
 const Grid = (props) => {
   const { imgs: propImgs, loadMore, currentImg } = props;
-  const [imgs, setImgs] = useState(propImgs);
+  const [imgs, setImgs] = useState(getItems(0, 0, propImgs, currentImg));
   const [hasMore, setHasMore] = useState(true);
-  const [showLoader, setShowLoader] = useState(true);
-  const colors = ['#07ff98', '#ff6665', '#05ccff','#9933ff','#fff35c'];
-
-
-  const init = async () => {
-    setImgs((await loadMore()));
-  };
-
-  useEffect(() => {
-    const handleScroll = (e) => {
-      // Do something here ...
-      const ele = e.currentTarget.scrollingElement;
-      // Condition to check if scroll reached bottom or not
-      const isBottom = ele.scrollHeight - ele.scrollTop === ele.clientHeight;
-      setShowLoader(true);
-      if (hasMore && imgs && imgs.length >= 10 && isBottom) {
-        loadMore(imgs[imgs.length - 1].id).then((data) => {
-          if (!data || !data.length || data.length < 10) {
-            setHasMore(false);
-          }
-          if (data && data.length) {
-            setImgs((oldImgs) => oldImgs.concat(data));
-            setShowLoader(false);
-          }
-        });
-      }
-    };
-    document.addEventListener('scroll', handleScroll, { passive: true });
-    return () => {
-      // This cleans up the event handler when the component unmounts.
-      document.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
 
   useEffect(() => {
     if (!imgs || !(Object.keys(imgs) || imgs).length) {
-      if (propImgs && propImgs.length) {
-        setImgs(propImgs);
-      } else {
-        init();
-      }
+      (async function init() {
+        const aImgs = propImgs && propImgs.length ? propImgs : (await loadMore());
+        setImgs(getItems(0, 0, aImgs, currentImg));
+      }());
     }
   }, [propImgs]);
 
-
-  const renderPlaceholder = (height, width) => {
-    const colorPicked = colors[Math.floor(Math.random() * colors.length)];
-
-    return (
-      <div
-        style={{ backgroundColor: colorPicked, height, width }}
-      />
-    );
-  };
-
-  const enableHover = (e) => {
-    e.currentTarget.children[1].className = 'img-tags-hover img-tags-hover-active';
-  }
-
-  const disableHover = (e) => {
-    e.currentTarget.children[1].className = 'img-tags-hover';
-  }
-
   return (
-    <div className="grid-view">
-      {imgs.map((img, key) => currentImg.id !== img.id && (
-        <div key={key} className="img-card" onMouseOver={enableHover} onMouseLeave={disableHover}>
-          <Link href={`/${img.type}/${img.id}`}>
-            <a>
-              <ProgressiveImage src={img.thumb.url} placeholder="">
-                {(src, loading) => (loading ? renderPlaceholder(img.thumb.height, img.thumb.width) : <img src={src} alt="an image" />)}
-              </ProgressiveImage>
-            </a>
-          </Link>
-          <div className="img-tags-hover">
-                <span>
-                {img.keywords.map((tag) => tag && (
-                  `#${tag} `
-                ))}
-                </span>
-          </div>
-        </div>
+    <GridLayout
+      className="gridlayout"
+      loading={loading}
+      groupBy={(item) => item.props['data-groupkey']}
+      options={{
+        isOverflowScroll: false,
+        useRecycle: true,
+        horizontal: false,
+        useFit: true,
+        useFirstRender: true,
+        threshold: 10,
+        transitionDuration: 0,
+      }}
+      layoutOptions={{
+        margin: 5,
+        align: 'center',
+      }}
+      onAppend={(e) => onAppend(e, hasMore, imgs, loadMore, setHasMore, setImgs, currentImg)}
+      onLayoutComplete={(e) => !e.isLayout && e.endLoading()}
+    >
+      {imgs.map((img) => (
+        <Item
+          data-groupkey={img.groupKey}
+          key={img.key}
+          num={img.key}
+          img={img.img}
+        />
       ))}
-      {showLoader && (
-      <div className="lds-ellipsis ">
-        <div />
-        <div />
-        <div />
-        <div />
-      </div>
-      )}
-    </div>
+    </GridLayout>
   );
 };
 
