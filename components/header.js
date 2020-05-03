@@ -13,10 +13,15 @@ const Header = (props) => (
       <div className="main-header__logo">
         <Link href="/">
           <a>
-            <img src="../static/logo/logo-gif.gif" alt=""/>
+            <img src="../static/logo/logo-gif.gif" alt="" />
             <svg
-              width="150px" height="27px" position="relative" margin="0" top="20px">
-              <text kerning="auto" font-family="Myriad Pro" fill="rgb(0, 0, 0)" font-size="36px" x="0px" y="27px"><tspan font-size="36px" font-family="Ubuntu" font-weight="bold" fill="#FFFFFF">EIPHY</tspan></text>
+              width="150px"
+              height="27px"
+              position="relative"
+              margin="0"
+              top="20px"
+            >
+              <text kerning="auto" fontFamily="Myriad Pro" fill="rgb(0, 0, 0)" fontSize="36px" x="0px" y="27px"><tspan fontSize="36px" fontFamily="Ubuntu" fontWeight="bold" fill="#FFFFFF">EIPHY</tspan></text>
             </svg>
           </a>
         </Link>
