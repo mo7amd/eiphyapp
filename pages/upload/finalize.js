@@ -52,7 +52,7 @@ export default function Finalize() {
 
     const tags = Array.from(new Set(keywords
       .map((keyword) => slugify(keyword, slugOptions))));
-    const tagsName = tags.join('_').substring(0, 20);
+    const tagsName = tags.join('_').substring(0, 20).replace(/\s/g, '_');
     const suffix = date.getTime().toString().substring(5);
     const name = `${tagsName}_${suffix}`;
 
@@ -127,8 +127,8 @@ export default function Finalize() {
     const thumbRatio = Math.min(300 / width, 300 / height);
 
     setDimensions({
-      img: { height: height * imgRatio, width: width * imgRatio },
-      thumb: { height: height * thumbRatio, width: width * thumbRatio },
+      img: { height: Math.trunc(height * imgRatio), width: Math.trunc(width * imgRatio) },
+      thumb: { height: Math.trunc(height * thumbRatio), width: Math.trunc(width * thumbRatio) },
     });
   };
 
