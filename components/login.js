@@ -17,6 +17,8 @@ const Login = () => {
       style={{
         backgroundColor: '#3e3e3e',
         textAlign: 'center',
+        width: 'fit-content',
+        display: 'inline-block'
       }}
       activeStyle={{
         backgroundColor: '#3e3e3e',

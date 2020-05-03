@@ -61,23 +61,16 @@ img {
   word-spacing: normal;
 }
 .main-header {
-  display: flex;
-  margin: 10px auto;
-  font: inherit;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
-  align-items: center;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
   &__links {
-    justify-self: flex-end;
-    margin-left: auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    align-self: flex-end;
+    text-align: end;
     a, button {
       text-decoration: none;
       cursor: pointer;
       margin-top: 10px;
-      margin-left: 14px;
+      margin-right: 14px;
       padding: 8.5px 16px;
       display: inline-block;
       background-size: 200% 50%;
@@ -97,16 +90,20 @@ img {
     }
   }
   &__logo {
-    width: 55%;
+    align-self: flex-end;
+    img {
+      position: relative;
+      top: 6px;
+      width: 25%;
+    }
   }
   .login {
-    margin:0 !important;
-    margin-top: 9px !important;
     height: 35px !important;
     border-radius: 0 !important;
-    margin-left: 14px !important;
-    padding: 8.5px 16px !important;
     font: inherit !important;
+    position: relative !important;
+    top: 2px !important;
+    margin: 0 !important;
   }
 }
 .search-tool {

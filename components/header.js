@@ -13,7 +13,11 @@ const Header = (props) => (
       <div className="main-header__logo">
         <Link href="/">
           <a>
-            <img className="main-header__logo" src="../static/logo/logo.gif" />
+            <img src="../static/logo/logo-gif.gif" alt=""/>
+            <svg
+              width="150px" height="27px" position="relative" margin="0" top="20px">
+              <text kerning="auto" font-family="Myriad Pro" fill="rgb(0, 0, 0)" font-size="36px" x="0px" y="27px"><tspan font-size="36px" font-family="Ubuntu" font-weight="bold" fill="#FFFFFF">EIPHY</tspan></text>
+            </svg>
           </a>
         </Link>
         <nav className="nav nav-masthead justify-content-center" />
