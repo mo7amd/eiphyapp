@@ -27,7 +27,8 @@ export default function Finalize() {
     e.preventDefault();
 
     if (typeof keyword === 'string' && keyword !== '' && keyword.length <= 50 && keywords.length <= 10) {
-      const value = keyword.trim().toLowerCase().replace(/\s/g, '_');
+      const value = keyword.trim().toLowerCase()
+        .replace(/\s+/g, ' ').replace(/\s/g, '_');
       if (!keywords.includes(value)) {
         setKeywords((t) => ([
           ...t,
