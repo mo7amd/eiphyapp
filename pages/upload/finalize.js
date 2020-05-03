@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import slugify, { slugOptions } from '../../lib/slugify';
 import firebase, { db } from '../../lib/firebase';
@@ -7,6 +7,7 @@ import Layout from '../../components/layout';
 
 export default function Finalize() {
   const [imgUrl, setImg] = useState('');
+  const [keyword, setKeyword] = useState('');
   const [keywords, setKeywords] = useState([]);
   const [disabled, setDisabled] = useState(false);
   const [user, setUser] = useState(firebase.auth().currentUser);
@@ -17,26 +18,24 @@ export default function Finalize() {
     setUser(user);
   });
 
-  const keywordRef = useRef();
+
   useEffect(() => {
     setImg(localStorage.getItem(process.env.IMG_PREVIEW));
   }, []);
-  useEffect(() => {
-    keywordRef.current.value = '';
-  }, [keywords]);
+
   const onAddTagHandler = (e) => {
     e.preventDefault();
-    let value = keywordRef.current && keywordRef.current.value;
-    if (typeof value === 'string' && value !== '' && value.length <= 50 && keywords.length <= 10) {
-      value = value.trim().toLowerCase().replace(/\s/g, '_');
-      if (keywords.includes(value)) {
-        keywordRef.current.value = '';
-        return;
+
+    if (typeof keyword === 'string' && keyword !== '' && keyword.length <= 50 && keywords.length <= 10) {
+      const value = keyword.trim().toLowerCase().replace(/\s/g, '_');
+      if (!keywords.includes(value)) {
+        setKeywords((t) => ([
+          ...t,
+          value,
+        ]));
       }
-      setKeywords((t) => ([
-        ...t,
-        value,
-      ]));
+
+      setKeyword('');
     }
   };
 
@@ -149,8 +148,8 @@ export default function Finalize() {
           <div key="img-info" className="col-lg-6 col-sm-12">
             <form onSubmit={(e) => onAddTagHandler(e)}>
               <label htmlFor="keywords">
-                <input ref={keywordRef} id="keywords" type="text" />
-                <button type="submit" className="" disabled={keywords.length > 10}>
+                <input onChange={(e) => setKeyword(e.target.value)} id="keywords" type="text" value={keyword} />
+                <button type="submit" className="" disabled={keyword.length === 0 || keyword.length > 50 || keywords.length > 10}>
                   add
                 </button>
               </label>
