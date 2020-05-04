@@ -61,9 +61,7 @@ Item.propTypes = {
 };
 
 function endLoading(e) {
-  setTimeout(() => {
-    e.endLoading();
-  }, 1000);
+  setTimeout(() => e.endLoading(), 1000);
 }
 
 function onAppend(e, hasMore, imgs, loadMore, setHasMore, setImgs, currentImg) {
@@ -80,7 +78,8 @@ function onAppend(e, hasMore, imgs, loadMore, setHasMore, setImgs, currentImg) {
         setHasMore(false);
       }
       if (data && data.length) {
-        setImgs(imgs.concat(getItems(nextGroupKey, nextKey, data, currentImg)));
+        setTimeout(() => setImgs(imgs.concat(getItems(nextGroupKey, nextKey, data, currentImg))),
+          1000);
       }
       endLoading(e);
     });
