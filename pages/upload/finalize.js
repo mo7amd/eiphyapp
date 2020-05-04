@@ -129,14 +129,14 @@ export default function Finalize() {
     const thumbRatio = Math.min(300 / width, 300 / height);
 
     const thumb = {
-      height: Math.trunc(height * thumbRatio),
-      width: Math.trunc(width * thumbRatio),
+      height: Math.round(height * thumbRatio),
+      width: Math.round(width * thumbRatio),
     };
 
     setDimensions({
       img: {
-        height: thumb.height >= height ? thumb.height : Math.trunc(height * imgRatio),
-        width: thumb.width >= width ? thumb.width : Math.trunc(width * imgRatio),
+        height: thumb.height >= height ? thumb.height : Math.round(height * imgRatio),
+        width: thumb.width >= width ? thumb.width : Math.round(width * imgRatio),
       },
       thumb,
     });
