@@ -95,12 +95,14 @@ export default function Finalize() {
 
       db.collection('posts').add(postData)
         .then((o) => {
-          const href = `/${type}/${o.id}`;
-          fetch(href).then(() => {
-            setTimeout(() => {
-              router.push(href);
-            }, 1000);
-          });
+          setTimeout(() => {
+            const href = `/${type}/${o.id}`;
+            fetch(href).then(() => {
+              setTimeout(() => {
+                router.push(href);
+              }, 1000);
+            });
+          }, 500);
         });
     }).catch((e) => {
       setDisabled(true);
@@ -122,7 +124,7 @@ export default function Finalize() {
     setKeywords((allKeywords) => allKeywords.filter((t) => t !== tag));
   };
 
-  const imgOnLoad = ({ target: { height, width } }) => {
+  const imgOnLoad = ({ target: { naturalHeight: height, naturalWidth: width } }) => {
     const imgRatio = Math.min(600 / width, 600 / height);
     const thumbRatio = Math.min(300 / width, 300 / height);
 

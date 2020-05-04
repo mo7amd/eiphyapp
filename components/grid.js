@@ -37,7 +37,7 @@ const Item = ({ img, num }) => (
     className="item"
     style={{ height: img.thumb.height, width: img.thumb.width, overflow: 'hidden' }}
   >
-    <Link href={`/${img.type}/${img.id}`}>
+    <Link href={`/${img.type}/${img.id}`} prefetch={false}>
       <a>
         <ProgressiveImage
           src={img.thumb.url}
@@ -60,8 +60,14 @@ Item.propTypes = {
   num: PropTypes.number.isRequired,
 };
 
+function endLoading(e) {
+  setTimeout(() => {
+    e.endLoading();
+  }, 1000);
+}
+
 function onAppend(e, hasMore, imgs, loadMore, setHasMore, setImgs, currentImg) {
-  if (e.currentTarget.isProcessing() || !hasMore || !imgs || imgs.length < 10) {
+  if (e.currentTarget.isProcessing() || !hasMore || !imgs || imgs.length < 25) {
     return;
   }
 
@@ -70,13 +76,13 @@ function onAppend(e, hasMore, imgs, loadMore, setHasMore, setImgs, currentImg) {
   e.startLoading();
   loadMore(imgs[nextKey - 1].img.id)
     .then((data) => {
-      if (!data || !data.length || data.length < 10) {
+      if (!data || !data.length || data.length < 25) {
         setHasMore(false);
       }
       if (data && data.length) {
         setImgs(imgs.concat(getItems(nextGroupKey, nextKey, data, currentImg)));
       }
-      e.endLoading();
+      endLoading(e);
     });
 }
 
@@ -105,15 +111,14 @@ const Grid = (props) => {
         horizontal: false,
         useFit: true,
         useFirstRender: true,
-        threshold: 10,
+        threshold: 25,
         transitionDuration: 0,
       }}
       layoutOptions={{
         margin: 5,
-        align: 'center',
       }}
       onAppend={(e) => onAppend(e, hasMore, imgs, loadMore, setHasMore, setImgs, currentImg)}
-      onLayoutComplete={(e) => !e.isLayout && e.endLoading()}
+      onLayoutComplete={(e) => !e.isLayout && endLoading(e)}
     >
       {imgs.map((img) => (
         <Item

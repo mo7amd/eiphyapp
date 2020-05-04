@@ -53,7 +53,7 @@ const ImgView = (props) => {
       </div>
       <div id="img-tags-container">
         {img.keywords.map((tag, key) => tag && (
-          <Link href={`/search/${tag}`} key={key}>
+          <Link href={`/search/${tag}`} key={key} prefetch={false}>
             <a className="img-tag" key={`${tag}_${key}`} href="#">{`#${tag}`}</a>
           </Link>
         ))}

@@ -4,7 +4,7 @@ const withPurgeCss = require('next-purgecss');
 module.exports = withSass(withPurgeCss({
   target: 'experimental-serverless-trace',
   purgeCss: {
-    whitelist: ['body'],
+    whitelist: ['body', 'html', '__next'],
   },
   purgeCssEnabled: ({ dev, isServer }) => (!dev && !isServer),
   env: {
