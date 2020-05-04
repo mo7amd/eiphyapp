@@ -8,7 +8,7 @@ const gifsicle = require('gifsicle');
 const app = admin.apps.length === 0 ? admin.initializeApp() : admin.app();
 
 function resizeGif({ width, height }, input, output) {
-  return new Promise(((resolve) => execFile(gifsicle, ['--resize-fit', `${width}x${height}`, '-o', output, input], (err) => {
+  return new Promise(((resolve) => execFile(gifsicle, ['--resize', `${width}x${height}`, '-o', output, input], (err) => {
     if (err) {
       console.error(err);
     }
