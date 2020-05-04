@@ -135,8 +135,8 @@ export default function Finalize() {
 
     setDimensions({
       img: {
-        height: Math.max(thumb.height, Math.trunc(height * imgRatio)),
-        width: Math.max(thumb.width, Math.trunc(width * imgRatio)),
+        height: thumb.height >= height ? thumb.height : Math.trunc(height * imgRatio),
+        width: thumb.width >= width ? thumb.width : Math.trunc(width * imgRatio),
       },
       thumb,
     });
