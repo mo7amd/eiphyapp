@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus, faCross, faRemoveFormat, faTimes } from '@fortawesome/free-solid-svg-icons';
 import slugify, { slugOptions } from '../../lib/slugify';
 import firebase, { db } from '../../lib/firebase';
 import Login from '../../components/login';
@@ -112,7 +114,7 @@ export default function Finalize() {
 
 
   let uploadButton = (
-    <button disabled={disabled || keywords.length < 3} type="button" onClick={(e) => onUploadHandler(e)}>
+    <button className="upload-btn" disabled={disabled || keywords.length < 3} type="button" onClick={(e) => onUploadHandler(e)}>
       Upload
       Gif
     </button>
@@ -146,7 +148,7 @@ export default function Finalize() {
     <Layout>
       <div className="container text-center">
         <div className="row">
-          <div key="img-viewer" className="col-lg-6 col-sm-12">
+          <div key="img-viewer" className="img-preview">
             <img
               onError={(e) => {
                 router.push('/upload');
@@ -156,22 +158,26 @@ export default function Finalize() {
               onLoad={imgOnLoad}
             />
           </div>
-          <div key="img-info" className="col-lg-6 col-sm-12">
+          <div key="img-info" className="img-tags">
             <form onSubmit={(e) => onAddTagHandler(e)}>
               <label htmlFor="keywords">
                 <input onChange={(e) => setKeyword(e.target.value)} id="keywords" type="text" value={keyword} />
                 <button type="submit" className="" disabled={disabled || keyword.length < 3 || keyword.length > 50 || keywords.length > 10}>
-                  add
+                  <FontAwesomeIcon icon={faPlus} rotation={90} size="2x" color="white" swapOpacity />
                 </button>
               </label>
             </form>
             <ul>
               {
                 keywords.map((keyword, key) => (
-                  <li key={key}>
-                    {keyword}
-                    {' '}
-                    <button type="button" onClick={deleteKeyword(keyword)}>Delete</button>
+                  <li key={key} className="upload-keyword">
+                    <span>
+                      {keyword}
+                      {' '}
+                    </span>
+                    <button type="button" onClick={deleteKeyword(keyword)}>
+                      <FontAwesomeIcon icon={faTimes} size="2x" color="white" swapOpacity />
+                    </button>
                   </li>
                 ))
               }

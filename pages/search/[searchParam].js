@@ -12,13 +12,6 @@ function SearchPage({ imgs }) {
   return (
     <Layout>
       <DefaultSeo {...SEO} />
-
-      <h2>
-        hello
-        {' - '}
-        {searchParam}
-      </h2>
-
       <button
         type="button"
         onClick={() => {
