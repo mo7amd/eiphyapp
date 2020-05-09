@@ -37,11 +37,11 @@ const ImgView = (props) => {
       <div className="img-viewer">
         <SingleImg img={img} />
         <div className="img-viewer__info">
-          <h4>
-            views:
-            {' '}
-            {img.views}
-          </h4>
+          {/*<h4>*/}
+          {/*  views:*/}
+          {/*  {' '}*/}
+          {/*  {img.views}*/}
+          {/*</h4>*/}
           {/* <h4>
             username:
             {' '}
