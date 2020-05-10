@@ -12,7 +12,6 @@ const Login = () => {
   return (
     <FacebookLoginButton
       className="login"
-      id="fb_login"
       text="Login"
       style={{
         backgroundColor: '#3e3e3e',

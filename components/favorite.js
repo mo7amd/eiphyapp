@@ -50,7 +50,7 @@ const Favorite = ({ id }) => {
         className="fa fa-heart"
         onClick={() => {
           if (!user) {
-            document.getElementById('fb_login').click();
+            document.getElementsByClassName('login')[0].click();
             return;
           }
           setDisabled(true);
