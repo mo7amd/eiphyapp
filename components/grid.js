@@ -35,14 +35,14 @@ const Item = ({ img, num }) => (
   <div
     key={num}
     className="item"
-    style={{ height: img.thumb.height, width: img.thumb.width, overflow: 'hidden' }}
+    style={{ left:0, height: img.thumb.height, overflow: 'hidden' }}
   >
     <Link href={`/${img.type}/${img.id}`} prefetch={false}>
       <a>
         <ProgressiveImage
           src={img.thumb.url}
           placeholder=""
-          data-width={img.thumb.width}
+          // data-width={img.thumb.width}
           data-height={img.thumb.height}
         >
           {(src, loading) => (loading ? imgLoading(num) : <img src={src} alt={img.keywords.join(', ')} />)}
@@ -102,6 +102,7 @@ const Grid = (props) => {
   return (
     <GridLayout
       className="gridlayout"
+      containerTag="main-layout"
       loading={loading}
       groupBy={(item) => item.props['data-groupkey']}
       options={{
@@ -114,7 +115,8 @@ const Grid = (props) => {
         transitionDuration: 0,
       }}
       layoutOptions={{
-        margin: 5,
+        margin: 2,
+        align: 'center',
       }}
       onAppend={(e) => onAppend(e, hasMore, imgs, loadMore, setHasMore, setImgs, currentImg)}
       onLayoutComplete={(e) => !e.isLayout && endLoading(e)}

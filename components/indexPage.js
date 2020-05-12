@@ -7,6 +7,7 @@ import { getTrending } from '../lib/query';
 const IndexPage = ({ imgs, type }) => (
   <Layout>
     <Grid
+      className="grid-container"
       imgs={imgs}
       loadMore={(startAfter) => getTrending({ startAfter, type })}
     />

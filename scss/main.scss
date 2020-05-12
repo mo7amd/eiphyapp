@@ -119,7 +119,7 @@ img {
     img {
       position: relative;
       top: 6px;
-      width: 25%;
+      width: 13%;
     }
   }
 
@@ -275,9 +275,9 @@ img {
   text-align: left;
   margin-bottom: 10px;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(7rem, 1fr));
   grid-column-gap: 1%;
-  grid-row-gap: 5%;
+  grid-row-gap: 1%;
 
   .img-tag {
     text-decoration: none;
@@ -301,7 +301,6 @@ img {
     -webkit-font-smoothing: antialiased;
     overflow-wrap: break-word;
     word-wrap: break-word;
-    max-inline-size: fit-content;
     margin: 0;
     font-size: 15px;
     text-transform: lowercase;
@@ -319,8 +318,11 @@ img {
 // grid
 
 .gridlayout {
+
   .item {
     opacity: 1;
+    width: 260px;
+    margin: 5px;
 
     .img-tags-hover {
       position: absolute;
