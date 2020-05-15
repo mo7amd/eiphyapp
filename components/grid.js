@@ -35,7 +35,7 @@ const Item = ({ img, num }) => (
   <div
     key={num}
     className="item"
-    style={{ left:0, height: img.thumb.height, overflow: 'hidden' }}
+    style={{ left: 0, height: img.thumb.height, overflow: 'hidden' }}
   >
     <Link href={`/${img.type}/${img.id}`} prefetch={false}>
       <a>
