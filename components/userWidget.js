@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Login from './login';
 import firebase from '../lib/firebase';
 import Logout from './logout';
@@ -16,18 +17,25 @@ class UserWidget extends Component {
 
   render() {
     const { user } = this.state;
+    const { callback } = this.props;
+
     if (!user) {
       return (
-        <Login />
+        <Login callback={callback} />
       );
     }
 
     return (
-      <Logout />
+      <Logout callback={callback} />
     );
   }
 }
 
-UserWidget.propTypes = {};
+UserWidget.defaultProps = {
+  callback: () => {},
+};
+UserWidget.propTypes = {
+  callback: PropTypes.func,
+};
 
 export default UserWidget;

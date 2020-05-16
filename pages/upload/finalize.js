@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faCross, faRemoveFormat, faTimes } from '@fortawesome/free-solid-svg-icons';
+import {
+  faPlus, faCross, faRemoveFormat, faTimes,
+} from '@fortawesome/free-solid-svg-icons';
 import slugify, { slugOptions } from '../../lib/slugify';
 import firebase, { db } from '../../lib/firebase';
 import Login from '../../components/login';

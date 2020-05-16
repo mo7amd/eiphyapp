@@ -1,8 +1,6 @@
 import { useRouter } from 'next/router';
-import { DefaultSeo } from 'next-seo';
 import Grid from '../../components/grid';
 import Layout from '../../components/layout';
-import SEO from '../../next-seo.config';
 import { search } from '../../lib/query';
 
 function SearchPage({ imgs }) {
@@ -11,7 +9,6 @@ function SearchPage({ imgs }) {
 
   return (
     <Layout>
-      <DefaultSeo {...SEO} />
       <button
         type="button"
         onClick={() => {

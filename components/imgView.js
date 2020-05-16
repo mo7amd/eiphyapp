@@ -1,12 +1,10 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { DefaultSeo } from 'next-seo';
 import DefaultErrorPage from 'next/error';
 import Link from 'next/link';
 import SingleImg from './singleImg';
 import Grid from './grid';
 import { getSimilar } from '../lib/query';
-import SEO from '../next-seo.config';
 import Share from './share';
 import Favorite from './favorite';
 import firebase, { db, config } from '../lib/firebase';
@@ -33,15 +31,14 @@ const ImgView = (props) => {
 
   return (
     <div>
-      <DefaultSeo {...SEO} />
       <div className="img-viewer">
         <SingleImg img={img} />
         <div className="img-viewer__info">
-          {/*<h4>*/}
-          {/*  views:*/}
-          {/*  {' '}*/}
-          {/*  {img.views}*/}
-          {/*</h4>*/}
+          {/* <h4> */}
+          {/*  views: */}
+          {/*  {' '} */}
+          {/*  {img.views} */}
+          {/* </h4> */}
           {/* <h4>
             username:
             {' '}

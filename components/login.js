@@ -3,10 +3,11 @@ import { FacebookLoginButton } from 'react-social-login-buttons';
 import slugify from 'slugify';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserFriends } from '@fortawesome/free-solid-svg-icons';
+import PropTypes from 'prop-types';
 import firebase, { db } from '../lib/firebase';
 import { slugOptions } from '../lib/slugify';
 
-const Login = () => {
+const Login = ({ callback }) => {
   const [disabled, setDisabled] = useState(false);
 
   return (
@@ -17,7 +18,7 @@ const Login = () => {
         backgroundColor: '#3e3e3e',
         textAlign: 'center',
         width: 'fit-content',
-        display: 'inline-block'
+        display: 'inline-block',
       }}
       activeStyle={{
         backgroundColor: '#3e3e3e',
@@ -61,6 +62,8 @@ const Login = () => {
 
           // store for local usage later
           localStorage.setItem('user', JSON.stringify(user));
+
+          callback();
         }).catch((error) => {
           console.error(error);
           setDisabled(false);
@@ -68,6 +71,14 @@ const Login = () => {
       }}
     />
   );
+};
+
+Login.defaultProps = {
+  callback: () => {},
+};
+
+Login.propTypes = {
+  callback: PropTypes.func,
 };
 
 export default Login;

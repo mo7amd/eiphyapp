@@ -32,7 +32,7 @@ const SearchField = () => {
         <button
           type="submit"
         >
-          <FontAwesomeIcon icon={faSearch} rotation={90} size="2x" color="white" swapOpacity/>
+          <FontAwesomeIcon icon={faSearch} rotation={90} size="2x" color="white" swapOpacity />
         </button>
       </form>
     </aside>
