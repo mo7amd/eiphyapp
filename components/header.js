@@ -98,7 +98,7 @@ const DesktopHeader = () => (
 
 const Header = () => {
   const LAYOUT_THRESHOLD = 560;
-  const [layout, setLayout] = useState(null);
+  const [layout, setLayout] = useState('large');
   if (process.browser) {
     useLayoutEffect(() => {
       const width = window.innerWidth;
@@ -110,7 +110,6 @@ const Header = () => {
     }, []);
   }
 
-  if (!layout) return false;
   if (layout === 'small') return <MobileHeader />;
 
   return <DesktopHeader />;
