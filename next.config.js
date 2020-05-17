@@ -5,6 +5,7 @@ module.exports = withSass(withPurgeCss({
   target: 'experimental-serverless-trace',
   purgeCss: {
     whitelist: ['body', 'html', '__next'],
+    whitelistPatterns: ['bm-*'],
   },
   purgeCssEnabled: ({ dev, isServer }) => (!dev && !isServer),
   env: {
