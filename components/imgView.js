@@ -44,8 +44,10 @@ const ImgView = (props) => {
             {' '}
             {img.user.username}
           </h4> */}
-          <Favorite id={img.id} />
-          <Share link={`${config.frontend}/${img.type}/${img.id}`} />
+          <div className="col justify-content-center align-items-center">
+            <Favorite id={img.id} />
+            <Share link={`${config.frontend}/${img.type}/${img.id}`} />
+          </div>
         </div>
       </div>
       <div id="img-tags-container">

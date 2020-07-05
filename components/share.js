@@ -19,7 +19,7 @@ class Share extends Component {
     const shareLink = encodeURIComponent(link);
 
     return (
-      <div className="row align-items-center justify-content-center m-auto">
+      <div>
         <Copy link={link} />
         <div
           role="presentation"

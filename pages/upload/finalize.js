@@ -22,7 +22,6 @@ export default function Finalize() {
     setUser(user);
   });
 
-
   useEffect(() => {
     setImg(localStorage.getItem(process.env.IMG_PREVIEW));
   }, []);
@@ -114,7 +113,6 @@ export default function Finalize() {
     });
   };
 
-
   let uploadButton = (
     <button className="upload-btn" disabled={disabled || keywords.length < 3} type="button" onClick={(e) => onUploadHandler(e)}>
       Upload
@@ -163,7 +161,7 @@ export default function Finalize() {
           <div key="img-info" className="img-tags">
             <form onSubmit={(e) => onAddTagHandler(e)}>
               <label htmlFor="keywords">
-                <input onChange={(e) => setKeyword(e.target.value)} id="keywords" type="text" value={keyword} />
+                <input onChange={(e) => setKeyword(e.target.value)} id="keywords" type="text" value={keyword} placeholder="Add at least 3 keywords" />
                 <button type="submit" className="" disabled={disabled || keyword.length < 3 || keyword.length > 50 || keywords.length > 10}>
                   <FontAwesomeIcon icon={faPlus} rotation={90} size="2x" color="white" swapOpacity />
                 </button>
