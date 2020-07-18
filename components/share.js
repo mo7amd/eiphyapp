@@ -19,8 +19,7 @@ class Share extends Component {
     const shareLink = encodeURIComponent(link);
 
     return (
-      <div>
-        <Copy link={link} />
+      <div className="row justify-content-center">
         <div
           role="presentation"
           className="addthis_inline_share_toolbox"
@@ -28,6 +27,7 @@ class Share extends Component {
           data-title={title}
           data-description={description}
         />
+        <Copy link={link} />
       </div>
     );
   }
@@ -44,6 +44,5 @@ Share.propTypes = {
   title: PropTypes.string,
   description: PropTypes.string,
 };
-
 
 export default Share;

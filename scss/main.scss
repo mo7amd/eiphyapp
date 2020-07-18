@@ -225,7 +225,6 @@ img {
 
 .img-viewer {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
   grid-gap: 1rem;
   cursor: pointer;
   margin-bottom: 5%;
@@ -255,14 +254,15 @@ img {
   }
 }
 
-.favorite {
-  margin-bottom: 10px;
-}
-
 .addthis_inline_share_toolbox {
   display: flex;
   justify-content: center;
-  margin-top: 10px;
+  margin: 0 10px;
+
+  .at-resp-share-element .at-share-btn {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
 }
 
 //'#07ff98', '#ff6665', '#05ccff','#9933ff','#fff35c'

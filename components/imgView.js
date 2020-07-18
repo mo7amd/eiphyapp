@@ -34,17 +34,7 @@ const ImgView = (props) => {
       <div className="img-viewer">
         <SingleImg img={img} />
         <div className="img-viewer__info">
-          {/* <h4> */}
-          {/*  views: */}
-          {/*  {' '} */}
-          {/*  {img.views} */}
-          {/* </h4> */}
-          {/* <h4>
-            username:
-            {' '}
-            {img.user.username}
-          </h4> */}
-          <div className="col justify-content-center align-items-center">
+          <div className="row justify-content-center align-items-center">
             <Favorite id={img.id} />
             <Share link={`${config.frontend}/${img.type}/${img.id}`} />
           </div>
