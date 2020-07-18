@@ -1,4 +1,5 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/zeit/next.js/tree/canary/packages/create-next-app).
+# Eiphy - Egyptian Flavored Giphy Clone
+Egyptians have a lot of memes, however there no centralized repository that focuses on hosting them all.
 
 ## Getting Started
 
@@ -9,3 +10,7 @@ npm run dev
 ```
 
 Open [http://localhost:2020](http://localhost:2020) with your browser to see the result.
+
+## Technologies used
+* Firebase
+* Next.js
