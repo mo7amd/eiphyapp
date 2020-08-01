@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SingleImg Tests should match snapshot 1`] = `
+<div class="img-viewer__img">
+  <div>
+    <img src="https://via.placeholder.com/150"
+         alt
+    >
+  </div>
+</div>
+`;
