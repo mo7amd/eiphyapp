@@ -6,7 +6,6 @@ import '../scss/main.scss';
 import UserWidget from './userWidget';
 import SearchField from './searchField';
 
-
 const BaseHeader = ({ children }) => (
   <>
     <header className="main-header">
