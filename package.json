@@ -54,6 +54,8 @@
     "eslint-plugin-react": "^7.19.0",
     "eslint-plugin-react-hooks": "^3.0.0",
     "jest": "^26.1.0",
+    "jest-axe": "^3.5.0",
+    "jest-css-modules": "^2.1.0",
     "jest-serializer-html": "^7.0.0",
     "react-test-renderer": "^16.13.1"
   }
