@@ -10,7 +10,7 @@ const Copy = ({ link }) => {
   };
 
   return (
-    <div>
+    <div className="img-viewer__copy">
       <input
         className="form-control"
         onChange={() => {

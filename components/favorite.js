@@ -15,7 +15,7 @@ const Favorite = ({ id }) => {
 
   if (alreadyFav) {
     return (
-      <div>
+      <div className="favorite">
         <button
           disabled={disabled}
           type="button"
@@ -43,7 +43,7 @@ const Favorite = ({ id }) => {
     );
   }
   return (
-    <div>
+    <div className="favorite">
       <button
         disabled={disabled || alreadyFav}
         type="button"

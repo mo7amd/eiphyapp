@@ -26,6 +26,36 @@ a {
 
   &:hover {
     color: inherit;
+    opacity: 0.8;
+  }
+}
+
+button {
+  color: white;
+  font-weight: bold;
+  border: 0;
+  background: linear-gradient(45deg, #9933ff, #ff6666);
+  background-size: 200% 200%;
+  animation: gradient 5s ease infinite;
+  cursor: pointer;
+  @keyframes gradient {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  &:disabled {
+    opacity: 0.5;
   }
 }
 
@@ -141,7 +171,6 @@ img {
   display: flex;
   align-items: center;
   background-color: $base-grey;
-  width: 100vw;
   top: 0;
   border-bottom: 15px solid $base-grey;
   border-top: 15px solid $base-grey;
@@ -152,7 +181,7 @@ img {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 80%;
+    width: 100%;
   }
 
   input {
@@ -187,21 +216,6 @@ img {
     width: 52px;
     height: 52px;
     border: none;
-    background: linear-gradient(45deg, #9933ff, #ff6666);
-    background-size: 200% 200%;
-    animation: gradient 5s ease infinite;
-    cursor: pointer;
-    @keyframes gradient {
-      0% {
-        background-position: 0% 50%;
-      }
-      50% {
-        background-position: 100% 50%;
-      }
-      100% {
-        background-position: 0% 50%;
-      }
-    }
   }
 }
 
@@ -211,7 +225,6 @@ img {
 
 .img-viewer {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
   grid-gap: 1rem;
   cursor: pointer;
   margin-bottom: 5%;
@@ -223,6 +236,32 @@ img {
   &__img {
     flex: 2;
     text-align: center;
+  }
+
+  button {
+    padding: 5px;
+    height: 31px;
+  }
+
+  &__copy {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    input {
+      height: 25px;
+    }
+  }
+}
+
+.addthis_inline_share_toolbox {
+  display: flex;
+  justify-content: center;
+  margin: 0 10px;
+
+  .at-resp-share-element .at-share-btn {
+    margin-top: 0;
+    margin-bottom: 0;
   }
 }
 
@@ -369,6 +408,22 @@ img {
 // upload page
 .row {
   display: flex;
+  flex-direction: row;
+}
+
+.col {
+  display: flex;
+  flex-direction: column;
+}
+
+.align-items-center {
+  display: flex;
+  align-items: center;
+}
+
+.justify-content-center {
+  display: flex;
+  justify-content: center;
 }
 
 .img-preview {
@@ -379,12 +434,24 @@ img {
   // margin-top: 20px;
   width: 48%;
 
+  label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
   input {
-    height: 21px;
+    padding: 10px;
+    font-size: 18px;
+    height: 20px;
   }
 
   button {
     vertical-align: middle;
+    padding: 10px;
+    height: 44px;
+    padding: 10px;
+    height: 44px;
   }
 }
 

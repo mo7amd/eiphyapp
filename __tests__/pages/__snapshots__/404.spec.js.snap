@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Custom404 Tests should match snapshot 1`] = `
+<div id="divLoading"
+     class="show"
+>
+</div>
+<div id="layout">
+  <header>
+    Header
+  </header>
+  <main class="main-layout">
+    <h1>
+      404 - Page Not Found
+    </h1>
+  </main>
+  <footer class="mastfoot mt-auto">
+    <div class="inner">
+    </div>
+  </footer>
+</div>
+`;

@@ -30,7 +30,6 @@ yarn-error.log*
 .env.production.local
 .idea
 yarn.lock
-package-lock.json
 .firebase
 firebase-debug.log
 functions/next

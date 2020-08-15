@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Footer Tests should match snapshot 1`] = `
+<footer class="mastfoot mt-auto">
+  <div class="inner">
+  </div>
+</footer>
+`;

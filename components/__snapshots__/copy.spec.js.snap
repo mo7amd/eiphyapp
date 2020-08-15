@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Copy Tests should match snapshot 1`] = `
+<div class="img-viewer__copy">
+  <input class="form-control"
+         type="text"
+         dir="ltr"
+         value="http://localhost:2020"
+  >
+  <button class="btn btn-outline-dark"
+          type="button"
+  >
+    Copy
+  </button>
+</div>
+`;
