@@ -61,7 +61,16 @@ const Login = ({ callback }) => {
           }
 
           // store for local usage later
-          localStorage.setItem('user', JSON.stringify(user));
+          localStorage.setItem('user', JSON.stringify({
+            uid: user.uid,
+            username: user.username,
+            email: user.email,
+            displayName: user.displayName,
+            isAnonymous: user.isAnonymous,
+            photoURL: user.photoURL,
+            emailVerified: user.emailVerified,
+            createdAt: user.createdAt,
+          }));
 
           callback();
         }).catch((error) => {
