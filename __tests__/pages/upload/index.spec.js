@@ -1,14 +1,14 @@
 import { mount } from 'enzyme';
 import { axe } from 'jest-axe';
-import Custom404 from '../../pages/404';
+import Upload from '../../../pages/upload/index';
 
-jest.mock('../../components/header', () => () => <header>Header</header>);
+jest.mock('../../../components/header', () => () => <header>Header</header>);
 
 function setup(props = {}) {
-  return mount(<Custom404 {...props} />);
+  return mount(<Upload {...props} />);
 }
 
-describe('Custom404 Tests', () => {
+describe('Upload Tests', () => {
   it('should work', () => {
     const actual = setup();
     expect(actual).toBe(actual);

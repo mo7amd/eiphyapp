@@ -38,10 +38,10 @@ export default function DropZone() {
         <input {...getInputProps()} />
         <p>Select or Drag and Drop your Gifs/Memes</p>
       </div>
-      <aside>
-        <h4>Files</h4>
+      <div>
+        <h3>Files</h3>
         <ErrorMsg msg={error} />
-      </aside>
+      </div>
     </section>
   );
 }

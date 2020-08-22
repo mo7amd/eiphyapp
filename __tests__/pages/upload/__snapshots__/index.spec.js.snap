@@ -1,0 +1,49 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Upload Tests should match snapshot 1`] = `
+<div id="divLoading"
+     class="show"
+>
+</div>
+<div id="layout">
+  <header>
+    Header
+  </header>
+  <main class="main-layout">
+    <div class="container">
+      <div class="row text-center">
+        <h2>
+          UPLOAD
+        </h2>
+        <p>
+          Upload your GIFs and Stickers to share on Facebook, Twitter, Instagram, text message, email, and everywhere else.
+        </p>
+      </div>
+      <section class="container">
+        <div tabindex="0"
+             class="dropzone"
+        >
+          <input accept="image/*"
+                 type="file"
+                 style="display: none;"
+                 autocomplete="off"
+                 tabindex="-1"
+          >
+          <p>
+            Select or Drag and Drop your Gifs/Memes
+          </p>
+        </div>
+        <div>
+          <h3>
+            Files
+          </h3>
+        </div>
+      </section>
+    </div>
+  </main>
+  <footer class="mastfoot mt-auto">
+    <div class="inner">
+    </div>
+  </footer>
+</div>
+`;
